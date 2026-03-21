@@ -1,0 +1,22 @@
+-- Enable Apache AGE extension for graph database capabilities.
+-- NOTE: Apache AGE is optional and may not be available in all Supabase environments.
+-- If AGE is not available, the application falls back to recursive CTEs
+-- for graph traversal queries over the entities and entity_relations tables.
+-- Uncomment the line below if AGE is available in your environment:
+-- CREATE EXTENSION IF NOT EXISTS age;
+-- LOAD 'age';
+-- SET search_path = ag_catalog, "$user", public;
+
+-- Fallback: The application uses recursive CTEs for graph traversal, e.g.:
+--
+-- WITH RECURSIVE graph AS (
+--   SELECT source_entity_id, target_entity_id, relation_type, 1 AS depth
+--   FROM entity_relations
+--   WHERE source_entity_id = $1 AND org_id = $2
+--   UNION ALL
+--   SELECT er.source_entity_id, er.target_entity_id, er.relation_type, g.depth + 1
+--   FROM entity_relations er
+--   JOIN graph g ON er.source_entity_id = g.target_entity_id
+--   WHERE g.depth < 3 AND er.org_id = $2
+-- )
+-- SELECT * FROM graph;
