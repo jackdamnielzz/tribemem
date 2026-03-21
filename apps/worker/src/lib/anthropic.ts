@@ -162,3 +162,68 @@ export function parseJsonResponse<T>(text: string): T {
 export function estimateTokens(text: string): number {
   return Math.ceil(text.length / 4);
 }
+
+// ---------------------------------------------------------------------------
+// Token budget management
+// ---------------------------------------------------------------------------
+
+import {
+  MODEL_CONTEXT_LIMITS,
+  truncateToTokenBudget,
+} from './tokens';
+
+/**
+ * Ensure content fits within a model's context window, reserving space for the
+ * system prompt, response tokens, and overhead.
+ */
+function fitContentToBudget(
+  content: string,
+  model: 'haiku' | 'sonnet',
+  reservedTokens: number = 2000,
+): string {
+  const limit = MODEL_CONTEXT_LIMITS[model];
+  const budget = limit - reservedTokens;
+  return truncateToTokenBudget(content, budget);
+}
+
+// ---------------------------------------------------------------------------
+// Convenience helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Extract structured information from content using Claude Haiku.
+ * Best for fast, cheap extraction and classification tasks.
+ *
+ * @param prompt - Instruction describing what to extract
+ * @param content - The raw content to extract from
+ * @returns The model's response text
+ */
+export async function extractWithHaiku(
+  prompt: string,
+  content: string,
+): Promise<string> {
+  const trimmedContent = fitContentToBudget(content, 'haiku');
+  return chatHaiku(
+    [{ role: 'user', content: `${prompt}\n\n---\n\n${trimmedContent}` }],
+    { maxTokens: 4096, temperature: 0 },
+  );
+}
+
+/**
+ * Synthesize or reason over content using Claude Sonnet.
+ * Best for nuanced reasoning, synthesis, and contradiction detection.
+ *
+ * @param prompt - Instruction describing what to synthesize
+ * @param content - The content to reason over
+ * @returns The model's response text
+ */
+export async function synthesizeWithSonnet(
+  prompt: string,
+  content: string,
+): Promise<string> {
+  const trimmedContent = fitContentToBudget(content, 'sonnet');
+  return chatSonnet(
+    [{ role: 'user', content: `${prompt}\n\n---\n\n${trimmedContent}` }],
+    { maxTokens: 8192, temperature: 0 },
+  );
+}

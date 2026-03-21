@@ -45,9 +45,11 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-scroll-area": "^1.0.5",
-    "framer-motion": "^11.0.0"
+    "framer-motion": "^11.0.0",
+    "resend": "^2.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.41.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.17",

@@ -4,8 +4,10 @@ import { getRedisConnection } from '../lib/redis';
 export const SYNC_QUEUE_NAME = 'sync';
 
 export interface SyncJobData {
-  connectorId: string;
+  connectorId?: string;
+  connectorType: string;
   orgId: string;
+  webhookPayload?: unknown;
 }
 
 let syncQueue: Queue<SyncJobData> | null = null;
@@ -43,7 +45,7 @@ export async function addRepeatableSync(
   const queue = getSyncQueue();
   await queue.add(
     'sync',
-    { connectorId, orgId },
+    { connectorId, connectorType: '', orgId },
     {
       repeat: {
         every: intervalMs,
@@ -51,6 +53,31 @@ export async function addRepeatableSync(
       jobId: `sync:${connectorId}`,
     },
   );
+}
+
+/**
+ * Enqueue a sync job with default priority.
+ */
+export async function enqueueSyncJob(data: SyncJobData): Promise<string> {
+  const queue = getSyncQueue();
+  const job = await queue.add('sync', data, {
+    jobId: `sync:${data.connectorType}:${data.orgId}:${Date.now()}`,
+  });
+  return job.id ?? '';
+}
+
+/**
+ * Enqueue a webhook-triggered sync job with high priority.
+ * Webhooks use priority 1 (highest) to ensure they are processed before
+ * scheduled syncs which use the default priority.
+ */
+export async function enqueueWebhookSyncJob(data: SyncJobData): Promise<string> {
+  const queue = getSyncQueue();
+  const job = await queue.add('sync', data, {
+    priority: 1,
+    jobId: `sync:webhook:${data.connectorType}:${data.orgId}:${Date.now()}`,
+  });
+  return job.id ?? '';
 }
 
 /**

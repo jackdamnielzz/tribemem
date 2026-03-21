@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { getAuthorizationUrl, getProvider } from '@/lib/oauth/providers';
 
 export async function POST(request: Request, { params }: { params: { type: string } }) {
   try {
@@ -14,19 +15,42 @@ export async function POST(request: Request, { params }: { params: { type: strin
 
     const { type } = params;
 
-    const supportedConnectors = ['slack', 'notion', 'jira', 'github', 'intercom', 'linear', 'google-drive', 'hubspot', 'confluence'];
-
-    if (!supportedConnectors.includes(type)) {
+    // Verify the connector type is supported
+    const provider = getProvider(type);
+    if (!provider) {
       return NextResponse.json({ error: `Unsupported connector type: ${type}` }, { status: 400 });
     }
 
-    // In production, this would generate OAuth URL and redirect
-    const mockOAuthUrl = `https://oauth.example.com/${type}/authorize?client_id=mock&redirect_uri=${encodeURIComponent(`${request.url}/callback`)}`;
+    // Get orgId from request body
+    const body = (await request.json()) as { org_id?: string };
+    const orgId = body.org_id;
+
+    if (!orgId) {
+      return NextResponse.json({ error: 'org_id is required' }, { status: 400 });
+    }
+
+    // Verify user belongs to the org
+    const { data: membership } = await supabase
+      .from('org_members')
+      .select('role')
+      .eq('org_id', orgId)
+      .eq('user_id', user.id)
+      .single();
+
+    if (!membership) {
+      return NextResponse.json({ error: 'You do not have access to this organization' }, { status: 403 });
+    }
+
+    // Build the OAuth callback URL
+    const url = new URL(request.url);
+    const redirectUri = `${url.origin}/api/auth/connectors/callback`;
+
+    // Generate the authorization URL with encoded state
+    const oauthUrl = getAuthorizationUrl(type, orgId, redirectUri);
 
     return NextResponse.json({
-      oauth_url: mockOAuthUrl,
+      oauth_url: oauthUrl,
       connector_type: type,
-      message: `Initiate OAuth flow for ${type}`,
     });
   } catch (error) {
     console.error('Connector connect error:', error);

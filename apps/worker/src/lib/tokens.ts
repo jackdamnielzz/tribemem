@@ -8,6 +8,22 @@
 
 const CHARS_PER_TOKEN = 4;
 
+// ---------------------------------------------------------------------------
+// Model context limits (in tokens)
+// ---------------------------------------------------------------------------
+
+/** Maximum context window sizes for supported Claude models. */
+export const MODEL_CONTEXT_LIMITS: Record<'haiku' | 'sonnet', number> = {
+  haiku: 200_000,
+  sonnet: 200_000,
+};
+
+/** Maximum output tokens for supported Claude models. */
+export const MODEL_MAX_OUTPUT_TOKENS: Record<'haiku' | 'sonnet', number> = {
+  haiku: 8_192,
+  sonnet: 8_192,
+};
+
 /**
  * Estimate the token count of a string.
  */
