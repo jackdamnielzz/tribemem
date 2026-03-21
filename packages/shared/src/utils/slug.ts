@@ -1,6 +1,6 @@
 import slugify from 'slugify';
 
-const SLUG_OPTIONS: slugify.Options = {
+const SLUG_OPTIONS: Parameters<typeof slugify>[1] & object = {
   lower: true,
   strict: true,
   trim: true,
