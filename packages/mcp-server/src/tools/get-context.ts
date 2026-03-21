@@ -20,7 +20,12 @@ export async function getContext(input: GetContextInput): Promise<string> {
     }),
   });
 
-  const data = await response.json();
+  const data = (await response.json()) as {
+    answer: string;
+    confidence: number;
+    sources?: { title: string; relevance_score: number; content_snippet: string }[];
+    related_questions?: string[];
+  };
 
   const lines: string[] = [];
   lines.push(`## Context: ${input.topic}\n`);

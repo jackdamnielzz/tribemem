@@ -50,7 +50,10 @@ export async function listDecisions(input: ListDecisionsInput): Promise<string> 
     }),
   });
 
-  const data = await response.json();
+  const data = (await response.json()) as {
+    answer: string;
+    sources?: { title: string; content_snippet: string; confidence: number; last_confirmed_at?: string }[];
+  };
 
   const lines: string[] = [];
   lines.push(`## Recent Decisions (last ${days} days)\n`);

@@ -14,7 +14,7 @@ let extractQueue: Queue<ExtractJobData> | null = null;
 export function getExtractQueue(): Queue<ExtractJobData> {
   if (extractQueue) return extractQueue;
 
-  extractQueue = new Queue<ExtractJobData>(EXTRACT_QUEUE_NAME, {
+  const queue = new Queue<ExtractJobData>(EXTRACT_QUEUE_NAME, {
     connection: getRedisConnection(),
     defaultJobOptions: {
       attempts: 2,
@@ -27,7 +27,8 @@ export function getExtractQueue(): Queue<ExtractJobData> {
     },
   });
 
-  return extractQueue;
+  extractQueue = queue;
+  return queue;
 }
 
 /** Default concurrency limit for extract workers. */
@@ -35,12 +36,7 @@ export const EXTRACT_CONCURRENCY = 5;
 
 export async function enqueueExtractJob(data: ExtractJobData): Promise<string> {
   const queue = getExtractQueue();
-  const job = await queue.add('extract', data, {
-    rateLimiter: {
-      max: 10,
-      duration: 1000,
-    },
-  });
+  const job = await queue.add('extract', data);
   return job.id ?? '';
 }
 
@@ -54,7 +50,7 @@ export async function enqueueExtractJobWithGroup(
 ): Promise<string> {
   const queue = getExtractQueue();
   const job = await queue.add('extract', data, {
-    group: { id: groupKey },
+    jobId: `extract:${groupKey}:${Date.now()}`,
   });
   return job.id ?? '';
 }

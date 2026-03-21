@@ -165,7 +165,7 @@ export class JiraConnector extends BaseConnector {
         this.extractAdfText(fields.description) || '(no description)';
       const status = (fields.status as Record<string, unknown>)?.name || 'Unknown';
       const assignee = (fields.assignee as Record<string, unknown>)?.displayName || 'Unassigned';
-      const reporter = (fields.reporter as Record<string, unknown>)?.displayName || 'Unknown';
+      const reporter = ((fields.reporter as Record<string, unknown>)?.displayName as string) || 'Unknown';
       const project = (fields.project as Record<string, unknown>)?.name || '';
       const issueType = (fields.issuetype as Record<string, unknown>)?.name || '';
 

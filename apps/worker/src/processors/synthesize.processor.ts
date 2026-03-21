@@ -181,7 +181,7 @@ async function retrieveKnowledge(
 
   // Apply Reciprocal Rank Fusion
   const fusedResults = reciprocalRankFusion(
-    vectorResults.map((r) => ({ ...r, last_confirmed_at: null })),
+    vectorResults.map((r) => ({ ...r, last_confirmed_at: null, fusedScore: 0 })),
     keywordResults,
     60, // k parameter for RRF
   );

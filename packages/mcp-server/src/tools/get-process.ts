@@ -22,7 +22,11 @@ export async function getProcess(input: GetProcessInput): Promise<string> {
     }),
   });
 
-  const data = await response.json();
+  const data = (await response.json()) as {
+    answer: string;
+    confidence: number;
+    sources?: { title: string; confidence: number; last_confirmed_at?: string }[];
+  };
 
   const lines: string[] = [];
   lines.push(`## Process: ${input.process_name}\n`);

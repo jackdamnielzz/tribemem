@@ -14,7 +14,7 @@ let crawlQueue: Queue<CrawlJobData> | null = null;
 export function getCrawlQueue(): Queue<CrawlJobData> {
   if (crawlQueue) return crawlQueue;
 
-  crawlQueue = new Queue<CrawlJobData>(CRAWL_QUEUE_NAME, {
+  const queue = new Queue<CrawlJobData>(CRAWL_QUEUE_NAME, {
     connection: getRedisConnection(),
     defaultJobOptions: {
       attempts: 3,
@@ -27,7 +27,8 @@ export function getCrawlQueue(): Queue<CrawlJobData> {
     },
   });
 
-  return crawlQueue;
+  crawlQueue = queue;
+  return queue;
 }
 
 export async function enqueueCrawlJob(data: CrawlJobData): Promise<string> {
@@ -42,7 +43,7 @@ export async function enqueueCrawlJob(data: CrawlJobData): Promise<string> {
  * Add a repeatable crawl job on a cron schedule.
  * @param connectorId - The connector to crawl
  * @param orgId - The organization ID
- * @param cron - Cron expression (e.g. "0 */6 * * *" for every 6 hours)
+ * @param cron - Cron expression (e.g. "0 0/6 * * *" for every 6 hours)
  */
 export async function addScheduledCrawl(
   connectorId: string,

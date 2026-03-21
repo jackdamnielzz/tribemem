@@ -15,7 +15,7 @@ let syncQueue: Queue<SyncJobData> | null = null;
 export function getSyncQueue(): Queue<SyncJobData> {
   if (syncQueue) return syncQueue;
 
-  syncQueue = new Queue<SyncJobData>(SYNC_QUEUE_NAME, {
+  const queue = new Queue<SyncJobData>(SYNC_QUEUE_NAME, {
     connection: getRedisConnection(),
     defaultJobOptions: {
       attempts: 3,
@@ -28,7 +28,8 @@ export function getSyncQueue(): Queue<SyncJobData> {
     },
   });
 
-  return syncQueue;
+  syncQueue = queue;
+  return queue;
 }
 
 /**

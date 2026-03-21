@@ -183,9 +183,12 @@ async function updateEntityStats(entityId: string): Promise<void> {
     .eq('id', entityId);
 
   // Increment mention count via RPC or manual update
-  await sb.rpc('increment_entity_mentions', { p_entity_id: entityId }).catch(() => {
-    // Fallback: non-atomic increment is acceptable
-  });
+  await sb.rpc('increment_entity_mentions', { p_entity_id: entityId }).then(
+    () => {},
+    () => {
+      // Fallback: non-atomic increment is acceptable
+    },
+  );
 }
 
 async function addAlias(entityId: string, alias: string): Promise<void> {

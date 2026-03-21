@@ -31,6 +31,7 @@ vi.mock('../../extraction/prompts/extract-decisions', () => ({
 
 import { extractFacts } from '../../extraction/extractor';
 import { chatHaiku, parseJsonResponse } from '../../lib/anthropic';
+import type { ConnectorType } from '@tribemem/shared';
 
 const mockedChatHaiku = vi.mocked(chatHaiku);
 const mockedParseJsonResponse = vi.mocked(parseJsonResponse);
@@ -39,17 +40,22 @@ const mockedParseJsonResponse = vi.mocked(parseJsonResponse);
 // Helpers
 // ---------------------------------------------------------------------------
 
-function makeRawEvent(content: string, connectorType = 'slack', occurredAt = '2024-01-15T10:00:00Z') {
+function makeRawEvent(content: string, connectorType: ConnectorType = 'slack', occurredAt = '2024-01-15T10:00:00Z') {
   return {
     id: crypto.randomUUID(),
     org_id: '550e8400-e29b-41d4-a716-446655440000',
     connector_id: 'conn-1',
     connector_type: connectorType,
     external_id: 'ext-1',
+    event_type: 'message',
+    author_external_id: null,
+    author_name: null,
     content,
+    raw_payload: {},
     occurred_at: occurredAt,
     ingested_at: '2024-01-15T10:01:00Z',
-    metadata: {},
+    processed: false,
+    processed_at: null,
   };
 }
 
