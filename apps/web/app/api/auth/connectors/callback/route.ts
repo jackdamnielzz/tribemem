@@ -61,9 +61,9 @@ export async function GET(request: Request) {
 
   // Verify user belongs to the org
   const { data: membership } = await supabase
-    .from('org_members')
+    .from('members')
     .select('role')
-    .eq('org_id', orgId)
+    .eq('organization_id', orgId)
     .eq('user_id', user.id)
     .single();
 

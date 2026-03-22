@@ -12,58 +12,30 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const mockConnectors = [
-      {
-        type: 'slack',
-        name: 'Slack',
-        status: 'connected',
-        last_sync_at: '2024-01-16T10:30:00Z',
-        item_count: 1247,
-        config: { channels: ['#general', '#engineering', '#product'] },
-      },
-      {
-        type: 'notion',
-        name: 'Notion',
-        status: 'connected',
-        last_sync_at: '2024-01-16T09:00:00Z',
-        item_count: 843,
-        config: { workspace_id: 'ws_123' },
-      },
-      {
-        type: 'jira',
-        name: 'Jira',
-        status: 'connected',
-        last_sync_at: '2024-01-16T08:00:00Z',
-        item_count: 356,
-        config: { project_keys: ['ENG', 'PROD'] },
-      },
-      {
-        type: 'github',
-        name: 'GitHub',
-        status: 'error',
-        last_sync_at: '2024-01-16T07:00:00Z',
-        item_count: 0,
-        error: 'API rate limit exceeded',
-      },
-      {
-        type: 'intercom',
-        name: 'Intercom',
-        status: 'connected',
-        last_sync_at: '2024-01-16T07:30:00Z',
-        item_count: 189,
-        config: {},
-      },
-      {
-        type: 'linear',
-        name: 'Linear',
-        status: 'connected',
-        last_sync_at: '2024-01-16T06:00:00Z',
-        item_count: 421,
-        config: {},
-      },
-    ];
+    // Get user's org
+    const { data: member } = await supabase
+      .from('members')
+      .select('organization_id')
+      .eq('user_id', user.id)
+      .single();
 
-    return NextResponse.json({ connectors: mockConnectors });
+    if (!member) {
+      return NextResponse.json({ error: 'No organization found' }, { status: 404 });
+    }
+
+    // Fetch all connectors for this org
+    const { data: connectors, error } = await supabase
+      .from('connectors')
+      .select('id, type, status, display_name, config, last_sync_at, last_error, events_processed, created_at')
+      .eq('org_id', member.organization_id)
+      .order('created_at', { ascending: true });
+
+    if (error) {
+      console.error('Connectors list error:', error.message);
+      return NextResponse.json({ error: 'Failed to fetch connectors' }, { status: 500 });
+    }
+
+    return NextResponse.json({ connectors: connectors || [] });
   } catch (error) {
     console.error('Connectors list error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

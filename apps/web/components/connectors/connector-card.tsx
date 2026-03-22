@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Plug, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
+import { Plug, CheckCircle2, Clock, AlertCircle, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,8 @@ interface ConnectorCardProps {
   status: 'connected' | 'available' | 'error';
   lastSync?: string;
   itemCount?: number;
+  onConnect?: () => void;
+  connectLoading?: boolean;
 }
 
 export function ConnectorCard({
@@ -24,6 +26,8 @@ export function ConnectorCard({
   status,
   lastSync,
   itemCount,
+  onConnect,
+  connectLoading,
 }: ConnectorCardProps) {
   return (
     <Card className="transition-colors hover:border-primary/30">
@@ -80,8 +84,14 @@ export function ConnectorCard({
               </Button>
             </div>
           ) : (
-            <Button size="sm" className="w-full">
-              Connect
+            <Button
+              size="sm"
+              className="w-full"
+              onClick={onConnect}
+              disabled={!onConnect || connectLoading}
+            >
+              {connectLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {onConnect ? 'Connect' : 'Coming soon'}
             </Button>
           )}
         </div>
