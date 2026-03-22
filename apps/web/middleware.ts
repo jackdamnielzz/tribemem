@@ -11,7 +11,7 @@ const protectedPaths = [
   '/api-keys',
 ];
 
-const authPaths = ['/login', '/signup'];
+const authPaths = ['/login', '/signup', '/forgot-password', '/reset-password'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

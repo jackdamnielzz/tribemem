@@ -13,5 +13,17 @@ export default async function DashboardLayout({ children }: { children: React.Re
     redirect('/login');
   }
 
+  // Check if user belongs to an organization — if not, redirect to onboarding
+  const { data: membership } = await supabase
+    .from('members')
+    .select('id')
+    .eq('user_id', user.id)
+    .limit(1)
+    .maybeSingle();
+
+  if (!membership) {
+    redirect('/onboarding');
+  }
+
   return <Shell>{children}</Shell>;
 }
