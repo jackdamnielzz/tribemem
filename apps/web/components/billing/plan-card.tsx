@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -11,9 +11,11 @@ interface PlanCardProps {
   features: string[];
   highlighted?: boolean;
   ctaLabel?: string;
+  onAction?: () => void;
+  loading?: boolean;
 }
 
-export function PlanCard({ name, price, period, features, highlighted = false, ctaLabel }: PlanCardProps) {
+export function PlanCard({ name, price, period, features, highlighted = false, ctaLabel, onAction, loading }: PlanCardProps) {
   return (
     <Card className={cn('flex flex-col', highlighted && 'border-primary shadow-lg shadow-primary/10')}>
       <CardHeader>
@@ -40,7 +42,13 @@ export function PlanCard({ name, price, period, features, highlighted = false, c
         </ul>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" variant={highlighted ? 'default' : 'outline'}>
+        <Button
+          className="w-full"
+          variant={highlighted ? 'default' : 'outline'}
+          onClick={onAction}
+          disabled={loading || !onAction}
+        >
+          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {ctaLabel || 'Upgrade'}
         </Button>
       </CardFooter>

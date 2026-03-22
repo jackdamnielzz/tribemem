@@ -8,6 +8,16 @@ interface Organization {
   name: string;
   slug: string;
   plan: string;
+  stripe_customer_id: string | null;
+  stripe_subscription_id: string | null;
+  usage_this_period: {
+    crawl_events: number;
+    extractions: number;
+    queries: number;
+    api_calls: number;
+    tokens_used: number;
+  };
+  usage_reset_at: string;
   created_at: string;
 }
 
@@ -30,7 +40,7 @@ export function useOrg() {
         }
 
         const { data: member, error: memberError } = await supabase
-          .from('organization_members')
+          .from('members')
           .select('organization_id')
           .eq('user_id', user.id)
           .single();

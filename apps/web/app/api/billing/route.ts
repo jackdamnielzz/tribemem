@@ -29,8 +29,8 @@ export async function GET() {
 
     // Get the user's org membership
     const { data: membership, error: memberError } = await serviceClient
-      .from('org_members')
-      .select('org_id')
+      .from('members')
+      .select('organization_id')
       .eq('user_id', user.id)
       .single();
 
@@ -41,8 +41,8 @@ export async function GET() {
     // Get org subscription details
     const { data: org, error: orgError } = await serviceClient
       .from('organizations')
-      .select('id, name, plan, stripe_customer_id, stripe_subscription_id')
-      .eq('id', membership.org_id)
+      .select('id, name, plan, stripe_customer_id, stripe_subscription_id, usage_this_period, usage_reset_at')
+      .eq('id', membership.organization_id)
       .single();
 
     if (orgError || !org) {
@@ -59,9 +59,27 @@ export async function GET() {
       }
     }
 
+    // Fetch billing history
+    const { data: billingEvents } = await serviceClient
+      .from('billing_events')
+      .select('id, event_type, amount_cents, currency, description, created_at')
+      .eq('org_id', org.id)
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    // Fetch counts for usage display
+    const [{ count: membersCount }, { count: connectorsCount }] = await Promise.all([
+      serviceClient.from('members').select('id', { count: 'exact', head: true }).eq('organization_id', org.id),
+      serviceClient.from('connectors').select('id', { count: 'exact', head: true }).eq('org_id', org.id),
+    ]);
+
     return NextResponse.json({
       plan: org.plan || 'free',
       stripe_customer_id: org.stripe_customer_id,
+      usage: org.usage_this_period || { crawl_events: 0, extractions: 0, queries: 0, api_calls: 0, tokens_used: 0 },
+      usage_reset_at: org.usage_reset_at,
+      members_count: membersCount || 0,
+      connectors_count: connectorsCount || 0,
       subscription: subscription
         ? {
             id: subscription.id,
@@ -76,6 +94,7 @@ export async function GET() {
             })),
           }
         : null,
+      billing_events: billingEvents || [],
     });
   } catch (error) {
     console.error('Billing get error:', error);
@@ -105,8 +124,8 @@ export async function POST(request: Request) {
 
     // Get the user's org
     const { data: membership, error: memberError } = await serviceClient
-      .from('org_members')
-      .select('org_id, role')
+      .from('members')
+      .select('organization_id, role')
       .eq('user_id', user.id)
       .single();
 
@@ -121,7 +140,7 @@ export async function POST(request: Request) {
     const { data: org, error: orgError } = await serviceClient
       .from('organizations')
       .select('id, stripe_customer_id')
-      .eq('id', membership.org_id)
+      .eq('id', membership.organization_id)
       .single();
 
     if (orgError || !org) {
@@ -187,8 +206,8 @@ export async function PUT(request: Request) {
 
     // Get the user's org
     const { data: membership, error: memberError } = await serviceClient
-      .from('org_members')
-      .select('org_id, role')
+      .from('members')
+      .select('organization_id, role')
       .eq('user_id', user.id)
       .single();
 
@@ -203,7 +222,7 @@ export async function PUT(request: Request) {
     const { data: org, error: orgError } = await serviceClient
       .from('organizations')
       .select('id, stripe_subscription_id')
-      .eq('id', membership.org_id)
+      .eq('id', membership.organization_id)
       .single();
 
     if (orgError || !org || !org.stripe_subscription_id) {
@@ -257,8 +276,8 @@ export async function DELETE() {
 
     // Get the user's org
     const { data: membership, error: memberError } = await serviceClient
-      .from('org_members')
-      .select('org_id, role')
+      .from('members')
+      .select('organization_id, role')
       .eq('user_id', user.id)
       .single();
 
@@ -273,7 +292,7 @@ export async function DELETE() {
     const { data: org, error: orgError } = await serviceClient
       .from('organizations')
       .select('id, stripe_subscription_id')
-      .eq('id', membership.org_id)
+      .eq('id', membership.organization_id)
       .single();
 
     if (orgError || !org || !org.stripe_subscription_id) {
