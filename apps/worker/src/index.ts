@@ -4,6 +4,7 @@ import { createCrawlWorker } from './processors/crawl.processor';
 import { createExtractWorker } from './processors/extract.processor';
 import { createSynthesizeWorker } from './processors/synthesize.processor';
 import { createAlertWorker } from './processors/alert.processor';
+import { createBillingWorker, scheduleBillingJobs } from './processors/billing.processor';
 import type { Worker } from 'bullmq';
 
 const PORT = parseInt(process.env.PORT || process.env.WORKER_PORT || '3001', 10);
@@ -34,9 +35,13 @@ async function main(): Promise<void> {
     createExtractWorker(),
     createSynthesizeWorker(),
     createAlertWorker(),
+    createBillingWorker(),
   ];
 
-  console.log(`[Worker] Started ${workers.length} workers: crawl, extract, synthesize, alert`);
+  // Schedule recurring billing jobs (usage reset + grace period check)
+  await scheduleBillingJobs();
+
+  console.log(`[Worker] Started ${workers.length} workers: crawl, extract, synthesize, alert, billing`);
 
   // ---------------------------------------------------------------------------
   // HTTP health check endpoint
