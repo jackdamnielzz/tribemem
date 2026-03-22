@@ -33,6 +33,9 @@ pnpm-debug.log*
 
 # Testing
 coverage/
+e2e/.auth/
+playwright-report/
+test-results/
 
 # Misc
 *.tsbuildinfo

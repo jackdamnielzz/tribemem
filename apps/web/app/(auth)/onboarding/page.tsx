@@ -85,6 +85,13 @@ export default function OnboardingPage() {
         return;
       }
 
+      // Send welcome email (fire-and-forget)
+      fetch('/api/internal/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'welcome', org_name: orgName }),
+      }).catch(() => {});
+
       toast({ title: 'Organization created', description: `Welcome to ${orgName}!` });
       router.push('/overview');
       router.refresh();

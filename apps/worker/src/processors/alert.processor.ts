@@ -2,6 +2,7 @@ import { Worker, type Job, Queue } from 'bullmq';
 import { v4 as uuid } from 'uuid';
 import { createRedisConnection, getRedisConnection } from '../lib/redis';
 import { insertAlert, getSupabaseClient } from '../lib/supabase';
+import { sendEmail } from '../lib/email';
 import type { AlertType, AlertSeverity } from '@tribemem/shared';
 
 const ALERT_QUEUE_NAME = 'alert';
@@ -133,17 +134,34 @@ async function sendNotifications(
   for (const channel of channels) {
     switch (channel) {
       case 'email': {
-        // TODO: Implement email notifications via Resend
-        // const org = await getOrgById(orgId);
-        // if (org.settings.notification_email) {
-        //   await resend.emails.send({
-        //     from: 'alerts@tribemem.com',
-        //     to: org.settings.notification_email,
-        //     subject: `[TribeMem Alert] ${severity.toUpperCase()}: ${title}`,
-        //     text: description,
-        //   });
-        // }
-        console.log(`[Alert] Email notification stub for ${orgId}: ${title}`);
+        // Send alert email to org owner
+        const { data: owner } = await sb
+          .from('members')
+          .select('email')
+          .eq('organization_id', orgId)
+          .eq('role', 'owner')
+          .limit(1)
+          .single();
+
+        if (owner?.email) {
+          const alertHtml = `
+            <div style="font-family: sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 24px;">
+              <div style="max-width: 600px; margin: 0 auto; background: #1a1a1a; border-radius: 8px; padding: 32px;">
+                <strong style="color: #fff; font-size: 18px;">TribeMem</strong>
+                <h1 style="color: #fff; font-size: 20px; margin: 24px 0 8px;">[${severity.toUpperCase()}] ${title}</h1>
+                <div style="background: #262626; border-left: 4px solid ${severity === 'critical' ? '#ef4444' : '#f59e0b'}; padding: 16px; border-radius: 4px;">
+                  <p style="margin: 0; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${description}</p>
+                </div>
+                <p style="color: #888; font-size: 13px; margin-top: 24px;">&copy; TribeMem</p>
+              </div>
+            </div>`;
+          await sendEmail(
+            owner.email,
+            `[TribeMem Alert] ${severity.toUpperCase()}: ${title}`,
+            alertHtml,
+          );
+          console.log(`[Alert] Email sent to ${owner.email} for org ${orgId}`);
+        }
         break;
       }
       case 'slack': {

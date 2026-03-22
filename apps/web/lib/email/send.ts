@@ -1,4 +1,4 @@
-import { resend } from './resend';
+import { getResend } from './resend';
 import {
   welcomeEmail,
   inviteEmail,
@@ -17,6 +17,12 @@ interface SendResult {
 }
 
 async function send(to: string, subject: string, html: string): Promise<SendResult> {
+  const resend = getResend();
+  if (!resend) {
+    console.warn('[Email] RESEND_API_KEY not set, skipping email to', to);
+    return { success: false, error: 'Email not configured' };
+  }
+
   try {
     const { data, error } = await resend.emails.send({
       from: FROM_ADDRESS,

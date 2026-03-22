@@ -198,6 +198,9 @@ importers:
       p-limit:
         specifier: ^5.0.0
         version: 5.0.0
+      resend:
+        specifier: ^2.1.0
+        version: 2.1.0
       stripe:
         specifier: ^14.0.0
         version: 14.25.0
