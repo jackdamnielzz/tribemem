@@ -19,6 +19,8 @@ export interface Plan {
   description: string;
   price_monthly_eur: number | null;
   price_yearly_eur: number | null;
+  stripe_price_id_monthly: string | null;
+  stripe_price_id_yearly: string | null;
   limits: PlanLimits;
   features: string[];
 }

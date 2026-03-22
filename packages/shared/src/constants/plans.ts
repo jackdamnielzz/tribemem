@@ -7,6 +7,8 @@ export const PLANS: Record<PlanId, Plan> = {
     description: 'Get started with organizational knowledge management',
     price_monthly_eur: 0,
     price_yearly_eur: 0,
+    stripe_price_id_monthly: null,
+    stripe_price_id_yearly: null,
     limits: {
       max_connectors: 1,
       max_members: 3,
@@ -29,6 +31,8 @@ export const PLANS: Record<PlanId, Plan> = {
     description: 'For small teams getting serious about knowledge management',
     price_monthly_eur: 49,
     price_yearly_eur: 470,
+    stripe_price_id_monthly: process.env.STRIPE_PRICE_STARTER_MONTHLY || null,
+    stripe_price_id_yearly: process.env.STRIPE_PRICE_STARTER_YEARLY || null,
     limits: {
       max_connectors: 3,
       max_members: 10,
@@ -53,6 +57,8 @@ export const PLANS: Record<PlanId, Plan> = {
     description: 'For growing organizations scaling their knowledge base',
     price_monthly_eur: 149,
     price_yearly_eur: 1430,
+    stripe_price_id_monthly: process.env.STRIPE_PRICE_GROWTH_MONTHLY || null,
+    stripe_price_id_yearly: process.env.STRIPE_PRICE_GROWTH_YEARLY || null,
     limits: {
       max_connectors: 8,
       max_members: 50,
@@ -79,6 +85,8 @@ export const PLANS: Record<PlanId, Plan> = {
     description: 'For large organizations with advanced needs',
     price_monthly_eur: 399,
     price_yearly_eur: 3830,
+    stripe_price_id_monthly: process.env.STRIPE_PRICE_BUSINESS_MONTHLY || null,
+    stripe_price_id_yearly: process.env.STRIPE_PRICE_BUSINESS_YEARLY || null,
     limits: {
       max_connectors: null,
       max_members: 200,
@@ -107,6 +115,8 @@ export const PLANS: Record<PlanId, Plan> = {
     description: 'Custom solutions for enterprise organizations',
     price_monthly_eur: null,
     price_yearly_eur: null,
+    stripe_price_id_monthly: process.env.STRIPE_PRICE_ENTERPRISE_MONTHLY || null,
+    stripe_price_id_yearly: process.env.STRIPE_PRICE_ENTERPRISE_YEARLY || null,
     limits: {
       max_connectors: null,
       max_members: null,
@@ -135,6 +145,19 @@ export const PLANS: Record<PlanId, Plan> = {
  */
 export function getPlan(planId: PlanId): Plan {
   return PLANS[planId];
+}
+
+/**
+ * Looks up a plan by its Stripe price ID (monthly or yearly).
+ * Returns null if no matching plan is found.
+ */
+export function getPlanByStripePriceId(priceId: string): Plan | null {
+  for (const plan of Object.values(PLANS)) {
+    if (plan.stripe_price_id_monthly === priceId || plan.stripe_price_id_yearly === priceId) {
+      return plan;
+    }
+  }
+  return null;
 }
 
 /**

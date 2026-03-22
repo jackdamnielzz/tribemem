@@ -6,7 +6,7 @@ import { createSynthesizeWorker } from './processors/synthesize.processor';
 import { createAlertWorker } from './processors/alert.processor';
 import type { Worker } from 'bullmq';
 
-const PORT = parseInt(process.env.WORKER_PORT || '3001', 10);
+const PORT = parseInt(process.env.PORT || process.env.WORKER_PORT || '3001', 10);
 
 // ---------------------------------------------------------------------------
 // Bootstrap

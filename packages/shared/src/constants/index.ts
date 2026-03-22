@@ -1,4 +1,4 @@
-export { PLANS, getPlan, isWithinPlanLimit } from './plans';
+export { PLANS, getPlan, getPlanByStripePriceId, isWithinPlanLimit } from './plans';
 export { CONNECTOR_METADATA, getConnectorMetadata, getConnectorsByCategory } from './connectors';
 export type { ConnectorMetadata } from './connectors';
 export {

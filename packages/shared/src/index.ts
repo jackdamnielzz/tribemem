@@ -65,6 +65,7 @@ export type {
 export {
   PLANS,
   getPlan,
+  getPlanByStripePriceId,
   isWithinPlanLimit,
   CONNECTOR_METADATA,
   getConnectorMetadata,
