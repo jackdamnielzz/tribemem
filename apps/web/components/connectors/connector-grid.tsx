@@ -24,18 +24,19 @@ const ALL_CONNECTORS: {
   description: string;
   color: string;
   oauthKey: string | null; // null = no OAuth provider (api_key or not implemented)
+  comingSoon?: boolean;
 }[] = [
   { type: 'slack', name: 'Slack', description: 'Chat messages, threads, and channels', color: 'bg-[#4A154B]', oauthKey: 'slack' },
   { type: 'notion', name: 'Notion', description: 'Pages, databases, and wikis', color: 'bg-[#191919]', oauthKey: 'notion' },
   { type: 'jira', name: 'Jira', description: 'Issues, epics, and project boards', color: 'bg-[#0052CC]', oauthKey: 'jira' },
   { type: 'github', name: 'GitHub', description: 'Repositories, PRs, and discussions', color: 'bg-[#24292F]', oauthKey: 'github' },
   { type: 'linear', name: 'Linear', description: 'Issues, projects, and roadmaps', color: 'bg-[#5E6AD2]', oauthKey: 'linear' },
-  { type: 'intercom', name: 'Intercom', description: 'Customer conversations and articles', color: 'bg-[#1F8DED]', oauthKey: 'intercom' },
   { type: 'google_drive', name: 'Google Drive', description: 'Documents, sheets, and presentations', color: 'bg-[#4285F4]', oauthKey: 'google-drive' },
   { type: 'hubspot', name: 'HubSpot', description: 'CRM contacts, deals, and knowledge base', color: 'bg-[#FF7A59]', oauthKey: 'hubspot' },
   { type: 'discord', name: 'Discord', description: 'Server messages, threads, and channels', color: 'bg-[#5865F2]', oauthKey: 'discord' },
-  { type: 'stripe', name: 'Stripe', description: 'Events, customers, and subscriptions', color: 'bg-[#635BFF]', oauthKey: null },
-  { type: 'confluence', name: 'Confluence', description: 'Spaces, pages, and blog posts', color: 'bg-[#1868DB]', oauthKey: null },
+  { type: 'intercom', name: 'Intercom', description: 'Customer conversations and articles', color: 'bg-[#1F8DED]', oauthKey: null, comingSoon: true },
+  { type: 'stripe', name: 'Stripe', description: 'Events, customers, and subscriptions', color: 'bg-[#635BFF]', oauthKey: null, comingSoon: true },
+  { type: 'confluence', name: 'Confluence', description: 'Spaces, pages, and blog posts', color: 'bg-[#1868DB]', oauthKey: null, comingSoon: true },
 ];
 
 export function ConnectorGrid() {
@@ -155,6 +156,7 @@ export function ConnectorGrid() {
                 status="available"
                 onConnect={def.oauthKey ? () => handleConnect(def.oauthKey!) : undefined}
                 connectLoading={connecting === def.oauthKey}
+                comingSoon={def.comingSoon}
               />
             ))}
           </div>

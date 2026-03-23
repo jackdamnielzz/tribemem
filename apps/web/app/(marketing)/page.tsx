@@ -16,17 +16,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
 const connectors = [
-  { name: 'Slack', color: 'bg-[#4A154B]' },
-  { name: 'Notion', color: 'bg-[#000000]' },
-  { name: 'Jira', color: 'bg-[#0052CC]' },
-  { name: 'GitHub', color: 'bg-[#24292F]' },
-  { name: 'Discord', color: 'bg-[#5865F2]' },
-  { name: 'Intercom', color: 'bg-[#1F8DED]' },
-  { name: 'Linear', color: 'bg-[#5E6AD2]' },
-  { name: 'Google Drive', color: 'bg-[#4285F4]' },
-  { name: 'HubSpot', color: 'bg-[#FF7A59]' },
-  { name: 'Confluence', color: 'bg-[#1868DB]' },
-  { name: 'Stripe', color: 'bg-[#635BFF]' },
+  { name: 'Slack', color: 'bg-[#4A154B]', comingSoon: false },
+  { name: 'Notion', color: 'bg-[#000000]', comingSoon: false },
+  { name: 'Jira', color: 'bg-[#0052CC]', comingSoon: false },
+  { name: 'GitHub', color: 'bg-[#24292F]', comingSoon: false },
+  { name: 'Discord', color: 'bg-[#5865F2]', comingSoon: false },
+  { name: 'Linear', color: 'bg-[#5E6AD2]', comingSoon: false },
+  { name: 'Google Drive', color: 'bg-[#4285F4]', comingSoon: false },
+  { name: 'HubSpot', color: 'bg-[#FF7A59]', comingSoon: false },
+  { name: 'Intercom', color: 'bg-[#1F8DED]', comingSoon: true },
+  { name: 'Confluence', color: 'bg-[#1868DB]', comingSoon: true },
+  { name: 'Stripe', color: 'bg-[#635BFF]', comingSoon: true },
 ];
 
 const features = [
@@ -262,10 +262,11 @@ export default function LandingPage() {
             {connectors.map((connector) => (
               <div
                 key={connector.name}
-                className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2"
+                className={`flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 ${connector.comingSoon ? 'opacity-40' : ''}`}
               >
-                <div className={`h-4 w-4 rounded ${connector.color}`} />
+                <div className={`h-4 w-4 rounded ${connector.comingSoon ? 'bg-muted' : connector.color}`} />
                 <span className="text-sm font-medium">{connector.name}</span>
+                {connector.comingSoon && <span className="text-xs text-muted-foreground">Soon</span>}
               </div>
             ))}
           </div>
