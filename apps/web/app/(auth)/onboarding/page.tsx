@@ -57,7 +57,6 @@ export default function OnboardingPage() {
           name: orgName,
           slug: orgSlug,
           plan: 'free',
-          owner_id: user.id,
         })
         .select()
         .single();
