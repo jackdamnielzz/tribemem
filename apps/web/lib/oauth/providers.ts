@@ -131,6 +131,21 @@ const providers: Record<string, OAuthProvider> = {
     },
   },
 
+  discord: {
+    name: 'Discord',
+    connectorType: 'discord',
+    authUrl: 'https://discord.com/api/oauth2/authorize',
+    tokenUrl: 'https://discord.com/api/oauth2/token',
+    scopes: ['identify', 'guilds', 'guilds.members.read', 'messages.read'],
+    clientId: process.env.DISCORD_CLIENT_ID || '',
+    clientSecret: process.env.DISCORD_CLIENT_SECRET || '',
+    tokenContentType: 'application/x-www-form-urlencoded',
+    tokenAuthMethod: 'body',
+    authParams: {
+      response_type: 'code',
+    },
+  },
+
   hubspot: {
     name: 'HubSpot',
     connectorType: 'hubspot',

@@ -34,6 +34,22 @@ export const CONNECTOR_METADATA: Record<ConnectorType, ConnectorMetadata> = {
     authMethod: 'oauth2',
     docsUrl: 'https://api.slack.com/scopes',
   },
+  discord: {
+    type: 'discord',
+    name: 'Discord',
+    description: 'Import knowledge from Discord servers and channels',
+    logoPlaceholder: '/connectors/discord.svg',
+    category: 'communication',
+    requiredScopes: [
+      'identify',
+      'guilds',
+      'guilds.members.read',
+      'messages.read',
+    ],
+    optionalScopes: [],
+    authMethod: 'oauth2',
+    docsUrl: 'https://discord.com/developers/docs/topics/oauth2',
+  },
   teams: {
     type: 'teams',
     name: 'Microsoft Teams',

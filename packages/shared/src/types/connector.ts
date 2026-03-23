@@ -1,5 +1,6 @@
 export type ConnectorType =
   | 'slack'
+  | 'discord'
   | 'teams'
   | 'notion'
   | 'confluence'

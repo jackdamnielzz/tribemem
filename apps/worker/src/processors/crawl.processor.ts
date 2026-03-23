@@ -20,6 +20,7 @@ import { LinearConnector } from '../connectors/linear.connector';
 import { GoogleDriveConnector } from '../connectors/google-drive.connector';
 import { HubSpotConnector } from '../connectors/hubspot.connector';
 import { StripeConnector } from '../connectors/stripe.connector';
+import { DiscordConnector } from '../connectors/discord.connector';
 import type { BaseConnector } from '../connectors/base.connector';
 import type { Connector, SyncCursor } from '@tribemem/shared';
 
@@ -33,6 +34,7 @@ const connectors: Record<string, BaseConnector> = {
   google_drive: new GoogleDriveConnector(),
   hubspot: new HubSpotConnector(),
   stripe: new StripeConnector(),
+  discord: new DiscordConnector(),
 };
 
 const EXTRACT_BATCH_SIZE = 50;
