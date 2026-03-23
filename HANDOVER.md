@@ -191,15 +191,15 @@ tribemem/
 - ✅ **Google Drive OAuth** — app created in Google Cloud Console, env vars set on Vercel + Railway
 - ✅ **Resend Email** — API key set on Vercel + Railway
 - ✅ **Stripe Live Mode** — products created in USD, all env vars updated to live mode
+- ✅ **Jira OAuth** — app created on Atlassian Developer Console, env vars set on Vercel + Railway
+- ✅ **Linear OAuth** — public OAuth app created, env vars set on Vercel + Railway
+- ✅ **HubSpot OAuth** — legacy app created, env vars set on Vercel + Railway
 
 ### Remaining Connector OAuth Apps
 
 | Connector | Platform | Env Vars |
 |-----------|----------|----------|
-| Jira | https://developer.atlassian.com/console/myapps | `JIRA_CLIENT_ID`, `JIRA_CLIENT_SECRET` |
-| Linear | https://linear.app/settings/api | `LINEAR_CLIENT_ID`, `LINEAR_CLIENT_SECRET` |
 | Intercom | https://app.intercom.com/a/apps/_/developer-hub | `INTERCOM_CLIENT_ID`, `INTERCOM_CLIENT_SECRET` |
-| HubSpot | https://app.hubspot.com/developer | `HUBSPOT_CLIENT_ID`, `HUBSPOT_CLIENT_SECRET` |
 
 ### Optional Enhancements
 
