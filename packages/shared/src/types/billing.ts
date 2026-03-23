@@ -17,8 +17,8 @@ export interface Plan {
   id: PlanId;
   name: string;
   description: string;
-  price_monthly_eur: number | null;
-  price_yearly_eur: number | null;
+  price_monthly_usd: number | null;
+  price_yearly_usd: number | null;
   stripe_price_id_monthly: string | null;
   stripe_price_id_yearly: string | null;
   limits: PlanLimits;
@@ -40,7 +40,7 @@ export interface BillingEvent {
   org_id: string;
   type: BillingEventType;
   plan_id: PlanId;
-  amount_eur: number | null;
+  amount_usd: number | null;
   currency: string;
   stripe_event_id: string | null;
   metadata: Record<string, unknown>;

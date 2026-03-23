@@ -169,9 +169,9 @@ export default function BillingPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-baseline gap-1">
-            {currentPlan.price_monthly_eur !== null ? (
+            {currentPlan.price_monthly_usd !== null ? (
               <>
-                <span className="text-4xl font-bold">&euro;{currentPlan.price_monthly_eur}</span>
+                <span className="text-4xl font-bold">${currentPlan.price_monthly_usd}</span>
                 <span className="text-muted-foreground">/month</span>
               </>
             ) : (
@@ -263,7 +263,7 @@ export default function BillingPage() {
               <PlanCard
                 key={planId}
                 name={plan.name}
-                price={plan.price_monthly_eur}
+                price={plan.price_monthly_usd}
                 period="month"
                 features={plan.features.slice(0, 5)}
                 highlighted={planId === 'growth'}
@@ -307,7 +307,7 @@ export default function BillingPage() {
                   <div className="flex items-center gap-4">
                     {event.amount_cents > 0 && (
                       <span className="text-sm font-medium">
-                        &euro;{(event.amount_cents / 100).toFixed(2)}
+                        ${(event.amount_cents / 100).toFixed(2)}
                       </span>
                     )}
                     <Badge variant={event.event_type.includes('fail') ? 'destructive' : 'secondary'}>

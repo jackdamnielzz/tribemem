@@ -33,6 +33,8 @@ const ALL_CONNECTORS: {
   { type: 'intercom', name: 'Intercom', description: 'Customer conversations and articles', color: 'bg-[#1F8DED]', oauthKey: 'intercom' },
   { type: 'google_drive', name: 'Google Drive', description: 'Documents, sheets, and presentations', color: 'bg-[#4285F4]', oauthKey: 'google-drive' },
   { type: 'hubspot', name: 'HubSpot', description: 'CRM contacts, deals, and knowledge base', color: 'bg-[#FF7A59]', oauthKey: 'hubspot' },
+  { type: 'discord', name: 'Discord', description: 'Server messages, threads, and channels', color: 'bg-[#5865F2]', oauthKey: 'discord' },
+  { type: 'stripe', name: 'Stripe', description: 'Events, customers, and subscriptions', color: 'bg-[#635BFF]', oauthKey: null },
   { type: 'confluence', name: 'Confluence', description: 'Spaces, pages, and blog posts', color: 'bg-[#1868DB]', oauthKey: null },
 ];
 

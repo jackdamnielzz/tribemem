@@ -20,11 +20,13 @@ const connectors = [
   { name: 'Notion', color: 'bg-[#000000]' },
   { name: 'Jira', color: 'bg-[#0052CC]' },
   { name: 'GitHub', color: 'bg-[#24292F]' },
+  { name: 'Discord', color: 'bg-[#5865F2]' },
   { name: 'Intercom', color: 'bg-[#1F8DED]' },
   { name: 'Linear', color: 'bg-[#5E6AD2]' },
   { name: 'Google Drive', color: 'bg-[#4285F4]' },
   { name: 'HubSpot', color: 'bg-[#FF7A59]' },
   { name: 'Confluence', color: 'bg-[#1868DB]' },
+  { name: 'Stripe', color: 'bg-[#635BFF]' },
 ];
 
 const features = [

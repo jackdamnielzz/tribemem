@@ -19,7 +19,7 @@ The full codebase is built, deployed, and all builds + tests pass. All 5 origina
 - **Worker URL:** https://worker-production-c86e.up.railway.app/health
 - **Last commit:** `5245f3d` — Wire up Resend email notifications and E2E test auth setup
 
-The platform is **fully operational** with all auth flows, billing (Stripe live mode, USD), 4 connector OAuth apps (GitHub, Slack, Notion, Google Drive), email notifications (Resend), and scheduled jobs configured.
+The platform is **fully operational** with all auth flows, billing (Stripe live mode, USD), 10 connector OAuth apps (GitHub, Slack, Notion, Google Drive, Jira, Linear, HubSpot, Discord), email notifications (Resend), and scheduled jobs configured.
 
 ---
 
@@ -45,7 +45,7 @@ tribemem/
 ### Stats
 - ~280 files, ~35,000 lines of code
 - 17 database tables with RLS policies
-- 10 connectors (Slack, Notion, Jira, GitHub, Intercom, Linear, Google Drive, HubSpot, Stripe)
+- 11 connectors (Slack, Discord, Notion, Jira, GitHub, Intercom, Linear, Google Drive, HubSpot, Stripe, Confluence)
 - 177 unit tests (Vitest), 43 e2e tests (Playwright)
 - 6 BullMQ workers: crawl, extract, synthesize, alert, billing, digest
 
@@ -88,6 +88,8 @@ tribemem/
   - `NOTION_CLIENT_SECRET` = *(set)*
   - `GOOGLE_CLIENT_ID` = *(set)*
   - `GOOGLE_CLIENT_SECRET` = *(set)*
+  - `DISCORD_CLIENT_ID` = *(set)*
+  - `DISCORD_CLIENT_SECRET` = *(set)*
 
 ### Railway (Worker)
 - **Service:** Worker deployed via Docker (`apps/worker/Dockerfile`)
@@ -194,6 +196,7 @@ tribemem/
 - ✅ **Jira OAuth** — app created on Atlassian Developer Console, env vars set on Vercel + Railway
 - ✅ **Linear OAuth** — public OAuth app created, env vars set on Vercel + Railway
 - ✅ **HubSpot OAuth** — legacy app created, env vars set on Vercel + Railway
+- ✅ **Discord OAuth** — app created, env vars set on Vercel + Railway
 
 ### Remaining Connector OAuth Apps
 
@@ -332,7 +335,7 @@ git add . && git commit -m "..." && git push origin master
 **Supabase CLI is already logged in and linked to the project.**
 
 ### Next Steps for New Session
-1. Create OAuth apps for connectors (Slack, Notion, GitHub, etc.) and set env vars
-2. Set up Resend: verify domain, set `RESEND_API_KEY` on Vercel + Railway
-3. Go live on Stripe: create live mode products/prices, update env vars
-4. Optional: Google/GitHub OAuth login, CI/CD pipeline, more E2E tests
+1. Optional: Google/GitHub OAuth login in Supabase
+2. Optional: CI/CD pipeline with GitHub Actions
+3. Optional: More E2E tests for authenticated flows
+4. Optional: Intercom OAuth app (requires paid plan)

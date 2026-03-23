@@ -57,7 +57,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     event_type: 'subscription_created',
     stripe_event_id: session.id,
     amount_cents: session.amount_total ?? 0,
-    currency: session.currency ?? 'eur',
+    currency: session.currency ?? 'usd',
     description: `Subscribed to ${planId} plan`,
     metadata: { price_id: priceId, subscription_id: subscriptionId },
   });
@@ -107,7 +107,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     event_type: 'subscription_updated',
     stripe_event_id: subscription.id,
     amount_cents: 0,
-    currency: 'eur',
+    currency: 'usd',
     description: `Subscription updated to ${plan?.id ?? 'unknown'} plan`,
     metadata: { price_id: priceId, status: subscription.status },
   });
@@ -149,7 +149,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     event_type: 'subscription_cancelled',
     stripe_event_id: subscription.id,
     amount_cents: 0,
-    currency: 'eur',
+    currency: 'usd',
     description: 'Subscription cancelled, downgraded to free plan',
     metadata: { previous_status: subscription.status },
   });
@@ -175,7 +175,7 @@ async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
     event_type: 'payment_succeeded',
     stripe_event_id: invoice.id,
     amount_cents: invoice.amount_paid ?? 0,
-    currency: invoice.currency ?? 'eur',
+    currency: invoice.currency ?? 'usd',
     description: `Payment succeeded for invoice ${invoice.number ?? invoice.id}`,
     metadata: { invoice_url: invoice.hosted_invoice_url },
   });
@@ -202,7 +202,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
     event_type: 'payment_failed',
     stripe_event_id: invoice.id,
     amount_cents: invoice.amount_due ?? 0,
-    currency: invoice.currency ?? 'eur',
+    currency: invoice.currency ?? 'usd',
     description: `Payment failed for invoice ${invoice.number ?? invoice.id}`,
     metadata: {
       invoice_url: invoice.hosted_invoice_url,
@@ -217,7 +217,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
     type: 'usage_limit',
     severity: 'critical',
     title: 'Payment failed',
-    description: `Your payment of €${((invoice.amount_due ?? 0) / 100).toFixed(2)} failed. Please update your payment method to avoid service interruption. Grace period ends ${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}.`,
+    description: `Your payment of $${((invoice.amount_due ?? 0) / 100).toFixed(2)} failed. Please update your payment method to avoid service interruption. Grace period ends ${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}.`,
   });
 }
 

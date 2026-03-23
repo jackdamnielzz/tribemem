@@ -23,7 +23,7 @@ export function PlanCard({ name, price, period, features, highlighted = false, c
         <div className="mt-2">
           {price !== null ? (
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold">&euro;{price}</span>
+              <span className="text-3xl font-bold">${price}</span>
               <span className="text-sm text-muted-foreground">/{period}</span>
             </div>
           ) : (

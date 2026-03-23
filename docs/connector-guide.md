@@ -33,6 +33,7 @@ The worker service orchestrates connectors through BullMQ jobs, calling the appr
 | **Zendesk** | Support | OAuth 2.0 | Tickets, help center articles |
 | **Freshdesk** | Support | API Key | Tickets, solutions |
 | **Google Drive** | Storage | OAuth 2.0 | Docs, Sheets, Slides |
+| **Discord** | Communication | OAuth 2.0 | Server messages, channels, threads |
 | **HubSpot** | CRM | OAuth 2.0 | Contacts, companies, deals, notes |
 | **Stripe** | Other | API Key | Events, customers, subscriptions |
 

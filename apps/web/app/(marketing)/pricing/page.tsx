@@ -104,7 +104,7 @@ const faqs = [
   {
     question: 'What connectors are available?',
     answer:
-      'We currently support Slack, Notion, Jira, GitHub, Intercom, Linear, Google Drive, HubSpot, and Confluence. We\'re continuously adding new integrations based on customer feedback.',
+      'We currently support Slack, Discord, Notion, Jira, GitHub, Intercom, Linear, Google Drive, HubSpot, Stripe, and Confluence. We\'re continuously adding new integrations based on customer feedback.',
   },
   {
     question: 'How does the crawler work?',
@@ -131,7 +131,7 @@ export default function PricingPage() {
         <div className="text-center">
           <h1 className="text-4xl font-bold">Simple, transparent pricing</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Start free, scale as your team grows. All prices in EUR.
+            Start free, scale as your team grows. All prices in USD.
           </p>
         </div>
 
@@ -159,7 +159,7 @@ export default function PricingPage() {
                     <span className="text-3xl font-bold">Custom</span>
                   ) : (
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold">&euro;{plan.price}</span>
+                      <span className="text-3xl font-bold">${plan.price}</span>
                       <span className="text-sm text-muted-foreground">/month</span>
                     </div>
                   )}

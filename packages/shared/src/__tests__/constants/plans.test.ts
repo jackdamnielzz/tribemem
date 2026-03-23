@@ -16,13 +16,13 @@ describe('PLANS', () => {
   });
 
   it('free plan has price of 0', () => {
-    expect(PLANS.free.price_monthly_eur).toBe(0);
-    expect(PLANS.free.price_yearly_eur).toBe(0);
+    expect(PLANS.free.price_monthly_usd).toBe(0);
+    expect(PLANS.free.price_yearly_usd).toBe(0);
   });
 
   it('enterprise plan has null pricing', () => {
-    expect(PLANS.enterprise.price_monthly_eur).toBeNull();
-    expect(PLANS.enterprise.price_yearly_eur).toBeNull();
+    expect(PLANS.enterprise.price_monthly_usd).toBeNull();
+    expect(PLANS.enterprise.price_yearly_usd).toBeNull();
   });
 
   it('enterprise plan has all null limits', () => {
@@ -51,8 +51,8 @@ describe('PLANS', () => {
 
   it('yearly pricing is less than 12x monthly for paid plans', () => {
     for (const plan of Object.values(PLANS)) {
-      if (plan.price_monthly_eur !== null && plan.price_yearly_eur !== null && plan.price_monthly_eur > 0) {
-        expect(plan.price_yearly_eur).toBeLessThan(plan.price_monthly_eur * 12);
+      if (plan.price_monthly_usd !== null && plan.price_yearly_usd !== null && plan.price_monthly_usd > 0) {
+        expect(plan.price_yearly_usd).toBeLessThan(plan.price_monthly_usd * 12);
       }
     }
   });
@@ -72,7 +72,7 @@ describe('getPlan', () => {
     expect(plan).toHaveProperty('id');
     expect(plan).toHaveProperty('name');
     expect(plan).toHaveProperty('description');
-    expect(plan).toHaveProperty('price_monthly_eur');
+    expect(plan).toHaveProperty('price_monthly_usd');
     expect(plan).toHaveProperty('limits');
     expect(plan).toHaveProperty('features');
   });
