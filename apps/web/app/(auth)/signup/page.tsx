@@ -25,25 +25,32 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const supabase = createClient();
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { full_name: fullName },
-          emailRedirectTo: `${window.location.origin}/callback`,
-        },
+      // Create user via admin API (auto-confirms email)
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, fullName }),
       });
 
-      if (error) {
-        toast({ title: 'Error', description: error.message, variant: 'destructive' });
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: 'Error', description: data.error, variant: 'destructive' });
         return;
       }
 
-      toast({
-        title: 'Check your email',
-        description: 'We sent you a confirmation link to verify your email address.',
+      // Sign in immediately after account creation
+      const supabase = createClient();
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
+
+      if (signInError) {
+        toast({ title: 'Error', description: signInError.message, variant: 'destructive' });
+        return;
+      }
+
+      router.push('/overview');
     } catch {
       toast({ title: 'Error', description: 'Something went wrong. Please try again.', variant: 'destructive' });
     } finally {
