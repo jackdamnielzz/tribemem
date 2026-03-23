@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { createClient } from '@/lib/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
 
 export default function OnboardingPage() {
@@ -40,56 +39,17 @@ export default function OnboardingPage() {
     setLoading(true);
 
     try {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        router.push('/login');
-        return;
-      }
-
-      // Create the organization
-      const { data: org, error: orgError } = await supabase
-        .from('organizations')
-        .insert({
-          name: orgName,
-          slug: orgSlug,
-          plan: 'free',
-        })
-        .select()
-        .single();
-
-      if (orgError) {
-        if (orgError.code === '23505') {
-          toast({ title: 'Error', description: 'An organization with this slug already exists.', variant: 'destructive' });
-        } else {
-          toast({ title: 'Error', description: orgError.message, variant: 'destructive' });
-        }
-        return;
-      }
-
-      // Add the user as owner member
-      const { error: memberError } = await supabase.from('members').insert({
-        organization_id: org.id,
-        user_id: user.id,
-        role: 'owner',
-        email: user.email,
-        name: user.user_metadata?.full_name || user.email,
-      });
-
-      if (memberError) {
-        toast({ title: 'Error', description: memberError.message, variant: 'destructive' });
-        return;
-      }
-
-      // Send welcome email (fire-and-forget)
-      fetch('/api/internal/email', {
+      const res = await fetch('/api/auth/onboarding', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'welcome', org_name: orgName }),
-      }).catch(() => {});
+        body: JSON.stringify({ orgName, orgSlug }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: 'Error', description: data.error, variant: 'destructive' });
+        return;
+      }
 
       toast({ title: 'Organization created', description: `Welcome to ${orgName}!` });
       router.push('/overview');
