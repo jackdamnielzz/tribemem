@@ -1,6 +1,6 @@
 # TribeMem — Handover Document
 
-**Date:** 2026-03-22
+**Date:** 2026-03-23
 **Project:** TribeMem — Autonomous Knowledge Crawler Platform
 **Repo:** https://github.com/jackdamnielzz/tribemem.git
 **Live URL:** https://tribemem.com
@@ -19,7 +19,7 @@ The full codebase is built, deployed, and all builds + tests pass. All 5 origina
 - **Worker URL:** https://worker-production-c86e.up.railway.app/health
 - **Last commit:** `5245f3d` — Wire up Resend email notifications and E2E test auth setup
 
-The platform is **code-complete** with all auth flows, billing, connector OAuth, email notifications, and scheduled jobs implemented. To become fully **operational**, create OAuth apps for connectors and set `RESEND_API_KEY` for transactional emails.
+The platform is **fully operational** with all auth flows, billing (Stripe live mode, USD), 4 connector OAuth apps (GitHub, Slack, Notion, Google Drive), email notifications (Resend), and scheduled jobs configured.
 
 ---
 
@@ -65,20 +65,29 @@ tribemem/
   - `SUPABASE_SERVICE_ROLE_KEY` = *(set)*
   - `NEXT_PUBLIC_APP_URL` = `https://tribemem.com`
   - `ENCRYPTION_KEY` = *(set, 64-char hex)*
-  - `STRIPE_SECRET_KEY` = *(set, test mode)*
-  - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` = *(set, test mode)*
-  - `STRIPE_WEBHOOK_SECRET` = *(set)*
-  - `STRIPE_PRICE_STARTER_MONTHLY` = `price_1TDhlZJ0i8NWlAF12GpFPALl`
-  - `STRIPE_PRICE_STARTER_YEARLY` = `price_1TDhpcJ0i8NWlAF1M8TWGAxR`
-  - `STRIPE_PRICE_GROWTH_MONTHLY` = `price_1TDhqVJ0i8NWlAF1VEvlprXo`
-  - `STRIPE_PRICE_GROWTH_YEARLY` = `price_1TDhqkJ0i8NWlAF1sIFaZo5U`
-  - `STRIPE_PRICE_BUSINESS_MONTHLY` = `price_1TDhr9J0i8NWlAF1jrjiZSpL`
-  - `STRIPE_PRICE_BUSINESS_YEARLY` = `price_1TDhrOJ0i8NWlAF101I9aUqh`
+  - `STRIPE_SECRET_KEY` = *(set, live mode)*
+  - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` = *(set, live mode)*
+  - `STRIPE_WEBHOOK_SECRET` = *(set, live mode)*
+  - `STRIPE_PRICE_STARTER_MONTHLY` = `price_1TE3ARJ0i8NWlAF1pTjSqlUA`
+  - `STRIPE_PRICE_STARTER_YEARLY` = `price_1TE3E0J0i8NWlAF11SNcU8X2`
+  - `STRIPE_PRICE_GROWTH_MONTHLY` = `price_1TE3CpJ0i8NWlAF174SeLmNR`
+  - `STRIPE_PRICE_GROWTH_YEARLY` = `price_1TE3EEJ0i8NWlAF1dgUagi6n`
+  - `STRIPE_PRICE_BUSINESS_MONTHLY` = `price_1TE3EdJ0i8NWlAF1HABargAU`
+  - `STRIPE_PRICE_BUSINESS_YEARLY` = `price_1TE3EuJ0i8NWlAF1VNfFPBxQ`
   - `REDIS_URL` = *(set)*
   - `ANTHROPIC_API_KEY` = *(set)*
   - `OPENAI_API_KEY` = *(set)*
   - `DATABASE_URL` = *(set)*
-  - `RESEND_API_KEY` = *(not yet set — needed for transactional emails)*
+  - `RESEND_API_KEY` = *(set)*
+  - `GITHUB_CLIENT_ID` = *(set)*
+  - `GITHUB_CLIENT_SECRET` = *(set)*
+  - `SLACK_CLIENT_ID` = *(set)*
+  - `SLACK_CLIENT_SECRET` = *(set)*
+  - `SLACK_SIGNING_SECRET` = *(set)*
+  - `NOTION_CLIENT_ID` = *(set)*
+  - `NOTION_CLIENT_SECRET` = *(set)*
+  - `GOOGLE_CLIENT_ID` = *(set)*
+  - `GOOGLE_CLIENT_SECRET` = *(set)*
 
 ### Railway (Worker)
 - **Service:** Worker deployed via Docker (`apps/worker/Dockerfile`)
@@ -89,7 +98,7 @@ tribemem/
   - Grace period check: hourly at :30
   - Weekly digest: Mondays at 09:00 UTC
 - **Environment Variables:** Same as Vercel (REDIS_URL, SUPABASE keys, AI API keys, etc.)
-- **Note:** Add `RESEND_API_KEY` to Railway when ready for email notifications
+- **Environment Variables:** Same as Vercel including all OAuth, Stripe live, and Resend keys
 
 ### Custom Domain (tribemem.com)
 - **Registrar:** Namecheap
@@ -113,14 +122,13 @@ tribemem/
 
 ### Stripe (Billing)
 - **Account:** Dunningdog (shared with other SaaS)
-- **Mode:** Test mode
-- **Products created (test mode):**
-  - TribeMem Starter: €49/month + €470/year
-  - TribeMem Growth: €149/month + €1,430/year
-  - TribeMem Business: €399/month + €3,830/year
-- **Webhook:** `https://tribemem.com/api/webhooks/stripe` (active, verified working)
+- **Mode:** Live mode (USD pricing)
+- **Products created (live mode):**
+  - TribeMem Starter: $49/month + $470/year
+  - TribeMem Growth: $149/month + $1,430/year
+  - TribeMem Business: $399/month + $3,830/year
+- **Webhook:** `https://tribemem.com/api/webhooks/stripe` (live mode, active)
   - Events: `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.payment_succeeded`, `invoice.payment_failed`
-- **Note:** When going live, create new products in live mode and update all `STRIPE_PRICE_*` env vars + `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET`
 
 ### GitHub
 - **Repo:** https://github.com/jackdamnielzz/tribemem.git
@@ -176,35 +184,22 @@ tribemem/
 
 ## 5. What Still Needs To Be Done
 
-### Connector OAuth Apps (Manual Setup)
+### Completed (Session 2026-03-23)
+- ✅ **GitHub OAuth** — app created, env vars set on Vercel + Railway
+- ✅ **Slack OAuth** — app created, env vars set on Vercel + Railway
+- ✅ **Notion OAuth** — public integration created, env vars set on Vercel + Railway
+- ✅ **Google Drive OAuth** — app created in Google Cloud Console, env vars set on Vercel + Railway
+- ✅ **Resend Email** — API key set on Vercel + Railway
+- ✅ **Stripe Live Mode** — products created in USD, all env vars updated to live mode
 
-Each connector needs an OAuth app created on its respective platform. The code is fully implemented — just create the apps and set env vars on Vercel + Railway.
-
-**Callback URL for all connectors:** `https://tribemem.com/api/auth/connectors/callback`
+### Remaining Connector OAuth Apps
 
 | Connector | Platform | Env Vars |
 |-----------|----------|----------|
-| Slack | https://api.slack.com/apps | `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET`, `SLACK_SIGNING_SECRET` |
-| Notion | https://www.notion.so/my-integrations | `NOTION_CLIENT_ID`, `NOTION_CLIENT_SECRET` |
-| GitHub | https://github.com/settings/developers | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` |
 | Jira | https://developer.atlassian.com/console/myapps | `JIRA_CLIENT_ID`, `JIRA_CLIENT_SECRET` |
 | Linear | https://linear.app/settings/api | `LINEAR_CLIENT_ID`, `LINEAR_CLIENT_SECRET` |
 | Intercom | https://app.intercom.com/a/apps/_/developer-hub | `INTERCOM_CLIENT_ID`, `INTERCOM_CLIENT_SECRET` |
-| Google Drive | https://console.cloud.google.com | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` |
 | HubSpot | https://app.hubspot.com/developer | `HUBSPOT_CLIENT_ID`, `HUBSPOT_CLIENT_SECRET` |
-
-### Resend Email Setup
-
-1. Create a Resend account at https://resend.com
-2. Add and verify the domain `tribemem.com`
-3. Get the API key and set `RESEND_API_KEY` on both **Vercel** and **Railway**
-
-### Stripe Go-Live
-
-When ready for production payments:
-1. Create products/prices in Stripe **live mode**
-2. Update all `STRIPE_PRICE_*`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` env vars on Vercel
-3. Create a new webhook endpoint in Stripe live mode pointing to `https://tribemem.com/api/webhooks/stripe`
 
 ### Optional Enhancements
 
@@ -212,6 +207,7 @@ When ready for production payments:
 - **SSO/SAML** — planned for enterprise tier per `plan.md`
 - **CI/CD pipeline** — GitHub Actions for automated testing on PRs
 - **More E2E tests** — add authenticated flow tests (login, connector setup, billing)
+- **Google Drive API** — enable the Drive API in Google Cloud Console (APIs & Services → Library)
 
 ---
 
