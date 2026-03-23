@@ -10,54 +10,14 @@ import { KnowledgeTable } from '@/components/knowledge/knowledge-table';
 import { EmptyState } from '@/components/shared/empty-state';
 import { Scale } from 'lucide-react';
 
-const mockDecisions = [
-  {
-    id: '1',
-    title: 'Adopted TypeScript as primary language for all new services',
-    type: 'decision' as const,
-    category: 'Engineering',
-    confidence: 0.97,
-    sourceCount: 8,
-    lastConfirmed: '2024-01-16',
-    status: 'active' as const,
-  },
-  {
-    id: '2',
-    title: 'Moved from Heroku to AWS ECS for production workloads',
-    type: 'decision' as const,
-    category: 'Infrastructure',
-    confidence: 0.94,
-    sourceCount: 5,
-    lastConfirmed: '2024-01-05',
-    status: 'active' as const,
-  },
-  {
-    id: '3',
-    title: 'Pricing increase of 15% for Growth plan effective Q2',
-    type: 'decision' as const,
-    category: 'Business',
-    confidence: 0.82,
-    sourceCount: 3,
-    lastConfirmed: '2024-01-02',
-    status: 'active' as const,
-  },
-  {
-    id: '4',
-    title: 'Remote-first policy with quarterly offsites',
-    type: 'decision' as const,
-    category: 'People',
-    confidence: 0.91,
-    sourceCount: 4,
-    lastConfirmed: '2023-12-28',
-    status: 'active' as const,
-  },
-];
-
 export default function DecisionsPage() {
   const [view, setView] = useState<'grid' | 'table'>('grid');
   const [search, setSearch] = useState('');
 
-  const filtered = mockDecisions.filter((d) =>
+  // TODO: fetch from API
+  const decisions: Array<{ id: string; title: string; type: 'decision'; category: string; confidence: number; sourceCount: number; lastConfirmed: string; status: 'active' | 'stale' }> = [];
+
+  const filtered = decisions.filter((d) =>
     d.title.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -103,7 +63,7 @@ export default function DecisionsPage() {
       </div>
 
       {filtered.length === 0 ? (
-        <EmptyState icon={Scale} title="No decisions found" description="No decisions match your filters." actionLabel="Add decision" onAction={() => {}} />
+        <EmptyState icon={Scale} title="No decisions yet" description="Decisions will appear here once the crawler extracts knowledge from your connected sources." actionLabel="Add decision" onAction={() => {}} />
       ) : view === 'grid' ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{filtered.map((item) => (<KnowledgeCard key={item.id} item={item} />))}</div>
       ) : (

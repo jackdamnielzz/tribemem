@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChatMessage } from '@/components/chat/chat-message';
 import { SuggestionChips } from '@/components/chat/suggestion-chips';
 
@@ -26,31 +25,6 @@ const initialSuggestions = [
   'Who handles customer escalations?',
   'What are our code review standards?',
 ];
-
-const mockResponse: Omit<Message, 'id' | 'timestamp'> = {
-  role: 'assistant',
-  content: `Based on the organizational knowledge I've found, here's what I know:
-
-**Enterprise Refund Policy**
-
-The enterprise refund window is **30 days** from the date of purchase. This policy was established in the Q3 2023 policy review and has been referenced across multiple sources.
-
-Key details:
-- Refunds must be initiated by the customer through their account manager
-- Partial refunds are available for unused portion of annual contracts
-- Processing takes 5-10 business days after approval
-- Refunds for custom integrations follow a separate process
-
-**Confidence: 95%** - This information was last confirmed on January 15, 2024 from 4 independent sources.
-
-> Note: There is a potential conflict flagged - a recent Slack message from the support team mentions a "60-day window" for specific cases. This may warrant review.`,
-  sources: [
-    { connector: 'notion', title: 'Refund Policy Documentation', url: '#' },
-    { connector: 'slack', title: '#policy-updates - Jan 10 discussion', url: '#' },
-    { connector: 'jira', title: 'POLICY-234: Q3 Policy Review', url: '#' },
-    { connector: 'confluence', title: 'Customer Success Handbook', url: '#' },
-  ],
-};
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -80,12 +54,13 @@ export function ChatInterface() {
     setInput('');
     setLoading(true);
 
-    // Simulate API response
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // TODO: Replace with real API call to /api/v1/query
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     const assistantMessage: Message = {
       id: (Date.now() + 1).toString(),
-      ...mockResponse,
+      role: 'assistant',
+      content: 'The Q&A feature is not yet connected to the knowledge base. Connect a source and run the crawler first to populate your organizational knowledge, then queries will return real results.',
       timestamp: new Date(),
     };
 
@@ -136,20 +111,6 @@ export function ChatInterface() {
           </div>
         )}
       </div>
-
-      {/* Follow-up suggestions */}
-      {messages.length > 0 && !loading && (
-        <div className="border-t border-border px-6 py-3">
-          <SuggestionChips
-            suggestions={[
-              'Tell me more about the exceptions',
-              'What is the process for annual contracts?',
-              'Who should I contact about this?',
-            ]}
-            onSelect={(suggestion) => handleSend(suggestion)}
-          />
-        </div>
-      )}
 
       {/* Input Area */}
       <div className="border-t border-border p-4">

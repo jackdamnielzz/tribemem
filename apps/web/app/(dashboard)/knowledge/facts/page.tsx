@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, Grid3X3, List, Filter } from 'lucide-react';
+import { Plus, Grid3X3, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -10,64 +10,14 @@ import { KnowledgeTable } from '@/components/knowledge/knowledge-table';
 import { EmptyState } from '@/components/shared/empty-state';
 import { Brain } from 'lucide-react';
 
-const mockFacts = [
-  {
-    id: '1',
-    title: 'Enterprise refund window is 30 days',
-    type: 'fact' as const,
-    category: 'Policy',
-    confidence: 0.95,
-    sourceCount: 4,
-    lastConfirmed: '2024-01-15',
-    status: 'active' as const,
-  },
-  {
-    id: '2',
-    title: 'Default API rate limit is 1000 requests per minute',
-    type: 'fact' as const,
-    category: 'Technical',
-    confidence: 0.88,
-    sourceCount: 2,
-    lastConfirmed: '2024-01-10',
-    status: 'active' as const,
-  },
-  {
-    id: '3',
-    title: 'GDPR data deletion must complete within 72 hours',
-    type: 'fact' as const,
-    category: 'Compliance',
-    confidence: 0.72,
-    sourceCount: 3,
-    lastConfirmed: '2023-12-20',
-    status: 'stale' as const,
-  },
-  {
-    id: '4',
-    title: 'Support team works in 3 timezone-based shifts',
-    type: 'fact' as const,
-    category: 'Operations',
-    confidence: 0.91,
-    sourceCount: 5,
-    lastConfirmed: '2024-01-12',
-    status: 'active' as const,
-  },
-  {
-    id: '5',
-    title: 'Maximum file upload size is 100MB',
-    type: 'fact' as const,
-    category: 'Technical',
-    confidence: 0.65,
-    sourceCount: 1,
-    lastConfirmed: '2023-11-30',
-    status: 'stale' as const,
-  },
-];
-
 export default function FactsPage() {
   const [view, setView] = useState<'grid' | 'table'>('grid');
   const [search, setSearch] = useState('');
 
-  const filteredFacts = mockFacts.filter((f) =>
+  // TODO: fetch from API
+  const facts: Array<{ id: string; title: string; type: 'fact'; category: string; confidence: number; sourceCount: number; lastConfirmed: string; status: 'active' | 'stale' | 'disputed' }> = [];
+
+  const filteredFacts = facts.filter((f) =>
     f.title.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -152,8 +102,8 @@ export default function FactsPage() {
       {filteredFacts.length === 0 ? (
         <EmptyState
           icon={Brain}
-          title="No facts found"
-          description="No facts match your current filters. Try adjusting your search or add a new fact."
+          title="No facts yet"
+          description="Facts will appear here once the crawler extracts knowledge from your connected sources."
           actionLabel="Add fact"
           onAction={() => {}}
         />

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Save } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Save, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,16 +10,34 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/components/ui/use-toast';
+import { useOrg } from '@/hooks/use-org';
 
 export default function SettingsPage() {
   const { toast } = useToast();
-  const [orgName, setOrgName] = useState('Acme Inc');
-  const [orgSlug, setOrgSlug] = useState('acme-inc');
-  const [orgDescription, setOrgDescription] = useState('Building the future of project management');
+  const { org, loading: orgLoading } = useOrg();
+  const [orgName, setOrgName] = useState('');
+  const [orgSlug, setOrgSlug] = useState('');
+  const [orgDescription, setOrgDescription] = useState('');
+
+  useEffect(() => {
+    if (org) {
+      setOrgName(org.name || '');
+      setOrgSlug(org.slug || '');
+      setOrgDescription(org.description || '');
+    }
+  }, [org]);
 
   const handleSave = () => {
     toast({ title: 'Settings saved', description: 'Your organization settings have been updated.' });
   };
+
+  if (orgLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
