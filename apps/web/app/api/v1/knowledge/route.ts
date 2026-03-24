@@ -12,47 +12,48 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { data: member } = await supabase
+      .from('members')
+      .select('organization_id')
+      .eq('user_id', user.id)
+      .single();
+
+    if (!member) {
+      return NextResponse.json({ error: 'No organization found' }, { status: 404 });
+    }
+
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
     const category = searchParams.get('category');
     const status = searchParams.get('status');
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '20');
+    const offset = (page - 1) * limit;
 
-    // Mock response
-    const mockItems = [
-      {
-        id: crypto.randomUUID(),
-        title: 'Enterprise refund window is 30 days',
-        type: 'fact',
-        category: 'Policy',
-        confidence: 0.95,
-        status: 'active',
-        source_count: 4,
-        last_confirmed_at: '2024-01-15T00:00:00Z',
-        created_at: '2023-06-01T00:00:00Z',
-        updated_at: '2024-01-15T00:00:00Z',
-      },
-      {
-        id: crypto.randomUUID(),
-        title: 'Production deployment requires staging approval',
-        type: 'process',
-        category: 'Engineering',
-        confidence: 0.93,
-        status: 'active',
-        source_count: 6,
-        last_confirmed_at: '2024-01-14T00:00:00Z',
-        created_at: '2023-07-15T00:00:00Z',
-        updated_at: '2024-01-14T00:00:00Z',
-      },
-    ];
+    let query = supabase
+      .from('knowledge_units')
+      .select('id, type, category, title, content, confidence_score, evidence_count, status, is_current, tags, created_at, updated_at', { count: 'exact' })
+      .eq('org_id', member.organization_id)
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    if (type) query = query.eq('type', type);
+    if (category) query = query.eq('category', category);
+    if (status) query = query.eq('status', status);
+
+    const { data: items, count, error } = await query;
+
+    if (error) {
+      console.error('Knowledge list error:', error.message);
+      return NextResponse.json({ error: 'Failed to fetch knowledge' }, { status: 500 });
+    }
 
     return NextResponse.json({
-      items: mockItems,
-      total: mockItems.length,
+      items: items || [],
+      total: count || 0,
       page,
       limit,
-      has_more: false,
+      has_more: (count || 0) > offset + limit,
     });
   } catch (error) {
     console.error('Knowledge list error:', error);
@@ -71,6 +72,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { data: member } = await supabase
+      .from('members')
+      .select('organization_id')
+      .eq('user_id', user.id)
+      .single();
+
+    if (!member) {
+      return NextResponse.json({ error: 'No organization found' }, { status: 404 });
+    }
+
     const body = await request.json();
     const { title, type, category, content } = body;
 
@@ -78,20 +89,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Title and type are required' }, { status: 400 });
     }
 
-    const mockItem = {
-      id: crypto.randomUUID(),
-      title,
-      type,
-      category: category || 'General',
-      content: content || '',
-      confidence: 1.0,
-      status: 'active',
-      source_count: 0,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
+    const { data: item, error } = await supabase
+      .from('knowledge_units')
+      .insert({
+        org_id: member.organization_id,
+        title,
+        type,
+        category: category || 'General',
+        content: content || '',
+      })
+      .select()
+      .single();
 
-    return NextResponse.json(mockItem, { status: 201 });
+    if (error) {
+      console.error('Knowledge create error:', error.message);
+      return NextResponse.json({ error: 'Failed to create knowledge item' }, { status: 500 });
+    }
+
+    return NextResponse.json(item, { status: 201 });
   } catch (error) {
     console.error('Knowledge create error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

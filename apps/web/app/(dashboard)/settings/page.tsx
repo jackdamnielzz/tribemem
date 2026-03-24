@@ -23,7 +23,6 @@ export default function SettingsPage() {
     if (org) {
       setOrgName(org.name || '');
       setOrgSlug(org.slug || '');
-      setOrgDescription(org.description || '');
     }
   }, [org]);
 

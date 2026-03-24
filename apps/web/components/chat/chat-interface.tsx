@@ -54,13 +54,38 @@ export function ChatInterface() {
     setInput('');
     setLoading(true);
 
-    // TODO: Replace with real API call to /api/v1/query
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    let assistantContent = '';
+    let sources: Message['sources'] = undefined;
+
+    try {
+      const res = await fetch('/api/v1/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: message.trim() }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        assistantContent = data.answer;
+        if (data.sources && data.sources.length > 0) {
+          sources = data.sources.map((s: { source_title?: string; source_url?: string; connector_type?: string }) => ({
+            title: s.source_title || 'Unknown source',
+            url: s.source_url,
+            connector: s.connector_type || 'other',
+          }));
+        }
+      } else {
+        assistantContent = 'Something went wrong while querying. Please try again.';
+      }
+    } catch {
+      assistantContent = 'Failed to connect to the server. Please try again.';
+    }
 
     const assistantMessage: Message = {
       id: (Date.now() + 1).toString(),
       role: 'assistant',
-      content: 'The Q&A feature is not yet connected to the knowledge base. Connect a source and run the crawler first to populate your organizational knowledge, then queries will return real results.',
+      content: assistantContent,
+      sources,
       timestamp: new Date(),
     };
 

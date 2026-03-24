@@ -13,27 +13,38 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     }
 
     const body = await request.json();
-    const { status, resolution } = body;
+    const { is_resolved, is_read } = body;
 
-    if (!status) {
-      return NextResponse.json({ error: 'Status is required' }, { status: 400 });
+    const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
+
+    if (typeof is_resolved === 'boolean') {
+      updates.is_resolved = is_resolved;
+      if (is_resolved) {
+        updates.resolved_at = new Date().toISOString();
+        updates.resolved_by = user.id;
+      } else {
+        updates.resolved_at = null;
+        updates.resolved_by = null;
+      }
     }
 
-    const validStatuses = ['open', 'acknowledged', 'resolved', 'dismissed'];
-    if (!validStatuses.includes(status)) {
-      return NextResponse.json({ error: `Invalid status. Must be one of: ${validStatuses.join(', ')}` }, { status: 400 });
+    if (typeof is_read === 'boolean') {
+      updates.is_read = is_read;
     }
 
-    const mockUpdated = {
-      id: params.id,
-      status,
-      resolution: resolution || null,
-      resolved_by: user.id,
-      resolved_at: status === 'resolved' ? new Date().toISOString() : null,
-      updated_at: new Date().toISOString(),
-    };
+    const { data: alert, error } = await supabase
+      .from('alerts')
+      .update(updates)
+      .eq('id', params.id)
+      .select()
+      .single();
 
-    return NextResponse.json(mockUpdated);
+    if (error) {
+      console.error('Alert update error:', error.message);
+      return NextResponse.json({ error: 'Failed to update alert' }, { status: 500 });
+    }
+
+    return NextResponse.json(alert);
   } catch (error) {
     console.error('Alert update error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

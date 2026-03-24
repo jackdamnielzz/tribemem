@@ -12,37 +12,23 @@ export async function GET(request: Request, { params }: { params: { id: string }
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Mock response
-    const mockItem = {
-      id: params.id,
-      title: 'Enterprise refund window is 30 days',
-      type: 'fact',
-      category: 'Policy',
-      content: 'The enterprise refund policy allows customers to request a full refund within 30 days of purchase.',
-      confidence: 0.95,
-      status: 'active',
-      sources: [
-        {
-          id: crypto.randomUUID(),
-          connector_type: 'notion',
-          title: 'Refund Policy Documentation',
-          url: 'https://notion.so/example',
-          extracted_at: '2024-01-10T00:00:00Z',
-        },
-        {
-          id: crypto.randomUUID(),
-          connector_type: 'slack',
-          title: '#policy-updates discussion',
-          url: 'https://slack.com/example',
-          extracted_at: '2024-01-15T00:00:00Z',
-        },
-      ],
-      last_confirmed_at: '2024-01-15T00:00:00Z',
-      created_at: '2023-06-01T00:00:00Z',
-      updated_at: '2024-01-15T00:00:00Z',
-    };
+    const { data: item, error } = await supabase
+      .from('knowledge_units')
+      .select('id, type, category, title, content, confidence_score, evidence_count, status, is_current, tags, created_at, updated_at')
+      .eq('id', params.id)
+      .single();
 
-    return NextResponse.json(mockItem);
+    if (error || !item) {
+      return NextResponse.json({ error: 'Knowledge item not found' }, { status: 404 });
+    }
+
+    // Fetch sources for this knowledge unit
+    const { data: sources } = await supabase
+      .from('sources')
+      .select('id, source_url, source_title, source_snippet, source_timestamp, created_at')
+      .eq('knowledge_unit_id', params.id);
+
+    return NextResponse.json({ ...item, sources: sources || [] });
   } catch (error) {
     console.error('Knowledge get error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -61,14 +47,27 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     }
 
     const body = await request.json();
+    const { title, category, content, status } = body;
 
-    const mockUpdated = {
-      id: params.id,
-      ...body,
-      updated_at: new Date().toISOString(),
-    };
+    const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    if (title !== undefined) updates.title = title;
+    if (category !== undefined) updates.category = category;
+    if (content !== undefined) updates.content = content;
+    if (status !== undefined) updates.status = status;
 
-    return NextResponse.json(mockUpdated);
+    const { data: item, error } = await supabase
+      .from('knowledge_units')
+      .update(updates)
+      .eq('id', params.id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Knowledge update error:', error.message);
+      return NextResponse.json({ error: 'Failed to update knowledge item' }, { status: 500 });
+    }
+
+    return NextResponse.json(item);
   } catch (error) {
     console.error('Knowledge update error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

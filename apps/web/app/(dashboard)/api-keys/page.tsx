@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Plus, Copy, Eye, EyeOff, Trash2, Key } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Plus, Copy, Trash2, Key, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -19,25 +19,43 @@ import {
 } from '@/components/ui/dialog';
 import { useToast } from '@/components/ui/use-toast';
 
-const apiKeys = [
-  { id: '1', name: 'Production API', key: 'tm_live_abc123...xyz789', created: '2024-01-10', lastUsed: '2024-01-16', status: 'active' },
-  { id: '2', name: 'Staging API', key: 'tm_test_def456...uvw012', created: '2023-12-15', lastUsed: '2024-01-14', status: 'active' },
-  { id: '3', name: 'CI/CD Pipeline', key: 'tm_live_ghi789...rst345', created: '2023-11-01', lastUsed: '2024-01-02', status: 'active' },
-];
+interface ApiKey {
+  id: string;
+  name: string;
+  key_prefix: string;
+  is_active: boolean;
+  last_used_at: string | null;
+  created_at: string;
+}
 
 export default function ApiKeysPage() {
   const { toast } = useToast();
   const [createOpen, setCreateOpen] = useState(false);
   const [keyName, setKeyName] = useState('');
-  const [visibleKeys, setVisibleKeys] = useState<Record<string, boolean>>({});
+  const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const toggleKeyVisibility = (id: string) => {
-    setVisibleKeys((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
+  const fetchKeys = useCallback(async () => {
+    try {
+      const res = await fetch('/api/v1/api-keys');
+      if (res.ok) {
+        const data = await res.json();
+        setApiKeys(data.keys || []);
+      }
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchKeys();
+  }, [fetchKeys]);
 
   const copyKey = (key: string) => {
     navigator.clipboard.writeText(key);
-    toast({ title: 'Copied', description: 'API key copied to clipboard.' });
+    toast({ title: 'Copied', description: 'API key prefix copied to clipboard.' });
   };
 
   return (
@@ -75,7 +93,7 @@ export default function ApiKeysPage() {
             <DialogFooter>
               <Button variant="outline" onClick={() => setCreateOpen(false)}>Cancel</Button>
               <Button onClick={() => {
-                toast({ title: 'API key created', description: 'Your new API key has been generated.' });
+                toast({ title: 'Coming soon', description: 'API key creation is not yet implemented.' });
                 setCreateOpen(false);
                 setKeyName('');
               }}>
@@ -95,50 +113,59 @@ export default function ApiKeysPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Key</TableHead>
-                <TableHead>Created</TableHead>
-                <TableHead>Last used</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="w-[100px]"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {apiKeys.map((apiKey) => (
-                <TableRow key={apiKey.id}>
-                  <TableCell className="font-medium">{apiKey.name}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <code className="font-mono text-xs text-muted-foreground">
-                        {visibleKeys[apiKey.id] ? apiKey.key : apiKey.key.replace(/[a-z0-9]/gi, '*')}
-                      </code>
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => toggleKeyVisibility(apiKey.id)}>
-                        {visibleKeys[apiKey.id] ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyKey(apiKey.key)}>
-                        <Copy className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {new Date(apiKey.created).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {new Date(apiKey.lastUsed).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                  </TableCell>
-                  <TableCell><Badge variant="success">{apiKey.status}</Badge></TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
+          {loading ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            </div>
+          ) : apiKeys.length === 0 ? (
+            <div className="py-8 text-center text-sm text-muted-foreground">
+              No API keys yet. Create one to get started.
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Key</TableHead>
+                  <TableHead>Created</TableHead>
+                  <TableHead>Last used</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="w-[100px]"></TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {apiKeys.map((apiKey) => (
+                  <TableRow key={apiKey.id}>
+                    <TableCell className="font-medium">{apiKey.name}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <code className="font-mono text-xs text-muted-foreground">
+                          {apiKey.key_prefix}...
+                        </code>
+                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyKey(apiKey.key_prefix)}>
+                          <Copy className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {new Date(apiKey.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {apiKey.last_used_at
+                        ? new Date(apiKey.last_used_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                        : 'Never'}
+                    </TableCell>
+                    <TableCell><Badge variant="success">{apiKey.is_active ? 'active' : 'inactive'}</Badge></TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </CardContent>
       </Card>
     </div>

@@ -22,20 +22,20 @@ export async function GET() {
       return NextResponse.json({ error: 'No organization found' }, { status: 404 });
     }
 
-    const { data: alerts, error } = await supabase
-      .from('alerts')
-      .select('id, type, severity, title, description, related_knowledge_ids, is_read, is_resolved, resolved_at, resolved_by, created_at, updated_at')
+    const { data: keys, error } = await supabase
+      .from('api_keys')
+      .select('id, name, key_prefix, is_active, last_used_at, created_at')
       .eq('org_id', member.organization_id)
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Alerts list error:', error.message);
-      return NextResponse.json({ error: 'Failed to fetch alerts' }, { status: 500 });
+      console.error('API keys list error:', error.message);
+      return NextResponse.json({ error: 'Failed to fetch API keys' }, { status: 500 });
     }
 
-    return NextResponse.json({ alerts: alerts || [], total: (alerts || []).length });
+    return NextResponse.json({ keys: keys || [] });
   } catch (error) {
-    console.error('Alerts list error:', error);
+    console.error('API keys list error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
