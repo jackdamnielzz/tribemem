@@ -15,7 +15,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       {/* Docs sidebar */}
       <aside className="w-64 shrink-0 border-r border-border bg-card/50">
         <ScrollArea className="h-full px-4 py-6">
-          <h2 className="mb-4 px-2 text-lg font-semibold">Documentatie</h2>
+          <h2 className="mb-4 px-2 text-lg font-semibold">Documentation</h2>
           <nav className="flex flex-col gap-1">
             {docsNavigation.map((section) => (
               <div key={section.slug} className="mb-3">

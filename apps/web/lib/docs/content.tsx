@@ -30,7 +30,7 @@ function Callout({ type = 'info', children }: { type?: 'info' | 'warning' | 'tip
     warning: 'border-yellow-500/30 bg-yellow-500/5 text-yellow-200',
     tip: 'border-emerald-500/30 bg-emerald-500/5 text-emerald-200',
   };
-  const labels = { info: 'Info', warning: 'Let op', tip: 'Tip' };
+  const labels = { info: 'Info', warning: 'Warning', tip: 'Tip' };
   return (
     <div className={`mb-4 rounded-lg border p-4 ${colors[type]}`}>
       <p className="mb-1 text-sm font-semibold">{labels[type]}</p>
@@ -67,174 +67,174 @@ function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
   );
 }
 
-/* ──────────────────── AAN DE SLAG ──────────────────── */
+/* ──────────────────── GETTING STARTED ──────────────────── */
 
-function Welkom() {
+function Welcome() {
   return (
     <>
       <P>
-        TribeMem is een autonoom kennisplatform dat continu de communicatie- en documentatietools van
-        je team monitort, automatisch organisatiekennis extraheert en deze via een uniforme
-        query-interface beschikbaar stelt.
+        TribeMem is an autonomous knowledge crawler platform that continuously monitors your
+        team&apos;s communication and documentation tools, automatically extracts organizational
+        knowledge, and serves it through a unified query interface.
       </P>
-      <H2>Wat maakt TribeMem uniek?</H2>
+      <H2>What makes TribeMem unique?</H2>
       <UL>
-        <li><strong>Geen wiki</strong> — TribeMem blijft automatisch actueel zonder handmatig onderhoud.</li>
-        <li><strong>Geen document-zoekmachine</strong> — Het synthetiseert kennis uit gedrag en patronen.</li>
-        <li><strong>Temporele versioning</strong> — Elk feit heeft een tijdlijn; oude versies worden nooit verwijderd.</li>
-        <li><strong>Bronverwijzingen</strong> — Elk antwoord is terug te traceren naar het oorspronkelijke bericht, ticket of document.</li>
+        <li><strong>Not a wiki</strong> — TribeMem stays current automatically without manual maintenance.</li>
+        <li><strong>Not document search</strong> — It synthesizes knowledge from behavior and patterns.</li>
+        <li><strong>Temporal versioning</strong> — Every fact has a timeline; old versions are superseded, never deleted.</li>
+        <li><strong>Source attribution</strong> — Every answer traces back to the original message, ticket, or document.</li>
       </UL>
-      <H2>Voor wie is TribeMem?</H2>
+      <H2>Who is TribeMem for?</H2>
       <UL>
-        <li><strong>Teamleiders &amp; managers</strong> — Versnel onboarding en verminder herhaalde vragen.</li>
-        <li><strong>Nieuwe medewerkers</strong> — Begrijp snel hoe dingen echt werken.</li>
-        <li><strong>Consultants &amp; auditors</strong> — Traceer beslissingen en hun rationale.</li>
-        <li><strong>Developers</strong> — Query via API of MCP voor custom tools.</li>
-        <li><strong>Ops &amp; support leads</strong> — Identificeer process drift en kennislacunes.</li>
+        <li><strong>Team leads &amp; managers</strong> — Accelerate onboarding and reduce repeated questions.</li>
+        <li><strong>New employees</strong> — Quickly understand how things really work.</li>
+        <li><strong>Consultants &amp; auditors</strong> — Trace decisions and their rationale.</li>
+        <li><strong>Developers</strong> — Query via API or MCP for custom tools.</li>
+        <li><strong>Ops &amp; support leads</strong> — Identify process drift and knowledge gaps.</li>
       </UL>
-      <H2>Volgende stappen</H2>
+      <H2>Next steps</H2>
       <P>
-        Maak een account aan en zet je organisatie op om direct aan de slag te gaan. Koppel je eerste
-        connector en stel je eerste vraag.
+        Create an account and set up your organization to get started. Connect your first
+        connector and ask your first question.
       </P>
     </>
   );
 }
 
-function AccountAanmaken() {
+function CreateAccount() {
   return (
     <>
       <P>
-        Het aanmaken van een TribeMem-account duurt slechts een paar minuten.
+        Creating a TribeMem account takes just a few minutes.
       </P>
-      <H2>Stappen</H2>
+      <H2>Steps</H2>
       <OL>
-        <li>Ga naar de registratiepagina via <strong>Sign up</strong> op de loginpagina.</li>
-        <li>Vul je e-mailadres en een sterk wachtwoord in.</li>
-        <li>Klik op <strong>Create account</strong>.</li>
-        <li>Je ontvangt een welkomst-e-mail ter bevestiging.</li>
-        <li>Na registratie word je automatisch doorgestuurd naar de onboarding.</li>
+        <li>Go to the registration page via <strong>Sign up</strong> on the login page.</li>
+        <li>Enter your email address and a strong password.</li>
+        <li>Click <strong>Create account</strong>.</li>
+        <li>You will receive a welcome email for confirmation.</li>
+        <li>After registration you will be automatically redirected to the onboarding flow.</li>
       </OL>
       <Callout type="tip">
-        Gebruik je werk-e-mailadres zodat teamgenoten je makkelijk kunnen herkennen wanneer je ze uitnodigt.
+        Use your work email address so teammates can easily recognize you when you invite them.
       </Callout>
-      <H2>Wachtwoord vergeten?</H2>
+      <H2>Forgot your password?</H2>
       <P>
-        Klik op <strong>Forgot password</strong> op de loginpagina. Je ontvangt een e-mail met een link
-        om een nieuw wachtwoord in te stellen.
+        Click <strong>Forgot password</strong> on the login page. You will receive an email with a link
+        to set a new password.
       </P>
     </>
   );
 }
 
-function OrganisatieOpzetten() {
+function SetUpOrganization() {
   return (
     <>
       <P>
-        Na het aanmaken van je account word je gevraagd om een organisatie op te zetten. Dit is de
-        werkruimte waarin alle kennis, connectors en teamleden worden beheerd.
+        After creating your account you will be asked to set up an organization. This is the
+        workspace where all knowledge, connectors, and team members are managed.
       </P>
-      <H2>Organisatie aanmaken</H2>
+      <H2>Create your organization</H2>
       <OL>
-        <li>Vul een <strong>organisatienaam</strong> in (bijv. &quot;Mijn Bedrijf&quot;).</li>
-        <li>De <strong>URL-slug</strong> wordt automatisch gegenereerd maar is aanpasbaar.</li>
-        <li>Voeg optioneel een <strong>beschrijving</strong> toe.</li>
-        <li>Klik op <strong>Create Organization</strong>.</li>
+        <li>Enter an <strong>organization name</strong> (e.g. &quot;My Company&quot;).</li>
+        <li>The <strong>URL slug</strong> is auto-generated but can be customized.</li>
+        <li>Optionally add a <strong>description</strong>.</li>
+        <li>Click <strong>Create Organization</strong>.</li>
       </OL>
       <P>
-        Je wordt automatisch toegewezen als <strong>Owner</strong> van de organisatie met volledige rechten.
+        You will automatically be assigned as the <strong>Owner</strong> of the organization with full permissions.
       </P>
       <Callout type="info">
-        Je kunt de organisatienaam en slug later wijzigen via Settings &gt; General.
+        You can change the organization name and slug later via Settings &gt; General.
       </Callout>
     </>
   );
 }
 
-function EersteConnector() {
+function FirstConnector() {
   return (
     <>
       <P>
-        Connectors zijn de bruggen tussen TribeMem en je bestaande tools. Door een connector te
-        koppelen geef je TribeMem toegang om kennis te extraheren uit je communicatie en documentatie.
+        Connectors are the bridges between TribeMem and your existing tools. By connecting a
+        connector you give TribeMem access to extract knowledge from your communication and documentation.
       </P>
-      <H2>Een connector koppelen</H2>
+      <H2>Connect a connector</H2>
       <OL>
-        <li>Navigeer naar <strong>Connectors</strong> in het zijmenu.</li>
-        <li>Kies de tool die je wilt koppelen (bijv. Slack, Notion, GitHub).</li>
-        <li>Klik op <strong>Connect</strong>.</li>
-        <li>Je wordt doorgestuurd naar de OAuth-autorisatiepagina van de betreffende tool.</li>
-        <li>Geef TribeMem de gevraagde permissies.</li>
-        <li>Na autorisatie word je teruggestuurd naar TribeMem.</li>
+        <li>Navigate to <strong>Connectors</strong> in the sidebar.</li>
+        <li>Choose the tool you want to connect (e.g. Slack, Notion, GitHub).</li>
+        <li>Click <strong>Connect</strong>.</li>
+        <li>You will be redirected to the OAuth authorization page of the respective tool.</li>
+        <li>Grant TribeMem the requested permissions.</li>
+        <li>After authorization you will be redirected back to TribeMem.</li>
       </OL>
       <Callout type="tip">
-        Begin met de tool waar je team het meest actief communiceert (meestal Slack of Discord) voor de beste resultaten.
+        Start with the tool where your team communicates most actively (usually Slack or Discord) for the best results.
       </Callout>
-      <H2>Wat gebeurt er na het koppelen?</H2>
+      <H2>What happens after connecting?</H2>
       <P>
-        TribeMem start automatisch met het crawlen van de gekoppelde bron. De crawler haalt berichten,
-        documenten en tickets op en de extractie-engine verwerkt deze tot gestructureerde kenniseenheden.
+        TribeMem automatically starts crawling the connected source. The crawler fetches messages,
+        documents, and tickets, and the extraction engine processes them into structured knowledge units.
       </P>
     </>
   );
 }
 
-function EersteVraag() {
+function FirstQuery() {
   return (
     <>
       <P>
-        Zodra je eerste connector gekoppeld is en de crawler data heeft verwerkt, kun je vragen stellen
-        aan je organisatiekennis.
+        Once your first connector is connected and the crawler has processed data, you can start
+        asking questions about your organizational knowledge.
       </P>
-      <H2>Een vraag stellen</H2>
+      <H2>Ask a question</H2>
       <OL>
-        <li>Klik op <strong>Ask</strong> in het zijmenu.</li>
-        <li>Typ je vraag in natuurlijke taal, bijvoorbeeld: &quot;Hoe werkt ons deployment-proces?&quot;</li>
-        <li>TribeMem doorzoekt de kennisbank en geeft een samengesteld antwoord met bronverwijzingen.</li>
+        <li>Click <strong>Ask</strong> in the sidebar.</li>
+        <li>Type your question in natural language, for example: &quot;How does our deployment process work?&quot;</li>
+        <li>TribeMem searches the knowledge base and provides a synthesized answer with source references.</li>
       </OL>
-      <H2>Tips voor effectieve vragen</H2>
+      <H2>Tips for effective questions</H2>
       <UL>
-        <li>Wees specifiek: &quot;Wie is verantwoordelijk voor het API-design?&quot; werkt beter dan &quot;Wie doet wat?&quot;</li>
-        <li>Vraag naar processen: &quot;Wat zijn de stappen voor een code review?&quot;</li>
-        <li>Vraag naar beslissingen: &quot;Waarom zijn we overgestapt naar PostgreSQL?&quot;</li>
-        <li>Vraag naar normen: &quot;Wat zijn onze coding standards voor TypeScript?&quot;</li>
+        <li>Be specific: &quot;Who is responsible for API design?&quot; works better than &quot;Who does what?&quot;</li>
+        <li>Ask about processes: &quot;What are the steps for a code review?&quot;</li>
+        <li>Ask about decisions: &quot;Why did we switch to PostgreSQL?&quot;</li>
+        <li>Ask about norms: &quot;What are our coding standards for TypeScript?&quot;</li>
       </UL>
       <Callout type="info">
-        Elk antwoord bevat een confidence score en bronverwijzingen zodat je kunt verifi&euml;ren waar de informatie vandaan komt.
+        Every answer includes a confidence score and source references so you can verify where the information comes from.
       </Callout>
     </>
   );
 }
 
-/* ──────────────────── KERNCONCEPTEN ──────────────────── */
+/* ──────────────────── CORE CONCEPTS ──────────────────── */
 
-function Kenniseenheden() {
+function KnowledgeUnits() {
   return (
     <>
       <P>
-        Kenniseenheden zijn de bouwstenen van TribeMem. Ze worden automatisch geëxtraheerd uit je
-        gekoppelde bronnen en vertegenwoordigen discrete stukjes organisatiekennis.
+        Knowledge units are the building blocks of TribeMem. They are automatically extracted from
+        your connected sources and represent discrete pieces of organizational knowledge.
       </P>
-      <H2>Vijf typen kenniseenheden</H2>
+      <H2>Five types of knowledge units</H2>
       <Table
-        headers={['Type', 'Beschrijving', 'Voorbeeld']}
+        headers={['Type', 'Description', 'Example']}
         rows={[
-          ['Feiten', 'Geverifieerde uitspraken over hoe dingen zijn', '"Onze betalingsverwerking duurt 2-3 dagen"'],
-          ['Processen', 'Stapsgewijze workflows', '"Hoe een nieuwe developer te onboarden"'],
-          ['Beslissingen', 'Belangrijke keuzes die zijn gemaakt', '"We kozen React boven Vue in 2022"'],
-          ['Normen', 'Teamstandaarden en afspraken', '"We vereisen code reviews voor elke merge"'],
-          ['Definities', 'Domeinspecifieke termen', '"Onze definitie van done"'],
+          ['Facts', 'Verified statements about how things are', '"Our payment processing takes 2-3 days"'],
+          ['Processes', 'Step-by-step workflows', '"How to onboard a new developer"'],
+          ['Decisions', 'Key choices that were made', '"We chose React over Vue in 2022"'],
+          ['Norms', 'Team standards and agreements', '"We require code reviews before every merge"'],
+          ['Definitions', 'Domain-specific terms', '"Our definition of done"'],
         ]}
       />
-      <H2>Kenmerken van een kenniseenheid</H2>
+      <H2>Knowledge unit attributes</H2>
       <UL>
-        <li><strong>Titel</strong> — Korte samenvatting van de kennis.</li>
-        <li><strong>Beschrijving</strong> — Gedetailleerde uitleg.</li>
-        <li><strong>Type</strong> — Een van de vijf typen hierboven.</li>
-        <li><strong>Categorie</strong> — Engineering, support, HR, finance, product, operations, sales of general.</li>
-        <li><strong>Status</strong> — Active, superseded, contradicted, archived of flagged.</li>
-        <li><strong>Confidence score</strong> — Betrouwbaarheidsscore van 0 tot 1.</li>
-        <li><strong>Tags</strong> — Voor filtering en organisatie.</li>
+        <li><strong>Title</strong> — Short summary of the knowledge.</li>
+        <li><strong>Description</strong> — Detailed explanation.</li>
+        <li><strong>Type</strong> — One of the five types above.</li>
+        <li><strong>Category</strong> — Engineering, support, HR, finance, product, operations, sales, or general.</li>
+        <li><strong>Status</strong> — Active, superseded, contradicted, archived, or flagged.</li>
+        <li><strong>Confidence score</strong> — Reliability score from 0 to 1.</li>
+        <li><strong>Tags</strong> — For filtering and organization.</li>
       </UL>
     </>
   );
@@ -244,124 +244,124 @@ function ConfidenceScores() {
   return (
     <>
       <P>
-        Elke kenniseenheid in TribeMem heeft een confidence score die aangeeft hoe betrouwbaar het
-        systeem de informatie acht. Scores lopen van 0 (onzeker) tot 1 (zeer betrouwbaar).
+        Every knowledge unit in TribeMem has a confidence score that indicates how reliable the
+        system considers the information. Scores range from 0 (uncertain) to 1 (highly reliable).
       </P>
-      <H2>Hoe worden scores berekend?</H2>
+      <H2>How are scores calculated?</H2>
       <UL>
-        <li><strong>Aantal bronnen</strong> — Meer onafhankelijke bronnen die hetzelfde bevestigen verhogen de score.</li>
-        <li><strong>Recentheid</strong> — Recentere informatie weegt zwaarder.</li>
-        <li><strong>Consistentie</strong> — Als bronnen elkaar tegenspreken, daalt de score.</li>
-        <li><strong>Brontype</strong> — Officiële documentatie weegt zwaarder dan chatberichten.</li>
+        <li><strong>Number of sources</strong> — More independent sources confirming the same thing increase the score.</li>
+        <li><strong>Recency</strong> — More recent information carries more weight.</li>
+        <li><strong>Consistency</strong> — If sources contradict each other, the score drops.</li>
+        <li><strong>Source type</strong> — Official documentation carries more weight than chat messages.</li>
       </UL>
-      <H2>Score-bereiken</H2>
+      <H2>Score ranges</H2>
       <Table
-        headers={['Score', 'Betekenis', 'Actie']}
+        headers={['Score', 'Meaning', 'Action']}
         rows={[
-          ['0.8 - 1.0', 'Hoge betrouwbaarheid', 'Veilig om te gebruiken'],
-          ['0.5 - 0.8', 'Redelijke betrouwbaarheid', 'Controleer de bronnen'],
-          ['0.0 - 0.5', 'Lage betrouwbaarheid', 'Verifieer handmatig'],
+          ['0.8 - 1.0', 'High reliability', 'Safe to use'],
+          ['0.5 - 0.8', 'Moderate reliability', 'Verify the sources'],
+          ['0.0 - 0.5', 'Low reliability', 'Manually verify'],
         ]}
       />
       <Callout type="info">
-        Je kunt in de organisatie-instellingen een drempelwaarde instellen. Kenniseenheden onder deze drempel worden automatisch geflagd als &quot;stale&quot;.
+        You can set a threshold in your organization settings. Knowledge units below this threshold will be automatically flagged as &quot;stale&quot;.
       </Callout>
     </>
   );
 }
 
-function TemporeleVersioning() {
+function TemporalVersioning() {
   return (
     <>
       <P>
-        Een van de krachtigste features van TribeMem is temporele versioning. In tegenstelling tot een
-        traditionele wiki, waar informatie simpelweg wordt overschreven, houdt TribeMem een complete
-        tijdlijn bij van hoe kennis evolueert.
+        One of TribeMem&apos;s most powerful features is temporal versioning. Unlike a traditional
+        wiki where information is simply overwritten, TribeMem maintains a complete timeline of how
+        knowledge evolves.
       </P>
-      <H2>Hoe werkt het?</H2>
+      <H2>How does it work?</H2>
       <UL>
-        <li><strong>valid_from / valid_until</strong> — Elk feit heeft een geldigheidsperiode.</li>
-        <li><strong>Superseded</strong> — Wanneer een feit wordt vervangen door nieuwe informatie, wordt het oude feit gemarkeerd als &quot;superseded&quot; met een link naar de opvolger.</li>
-        <li><strong>Contradicted</strong> — Als twee bronnen tegenstrijdige informatie geven, worden beide gemarkeerd.</li>
-        <li><strong>Confirmed</strong> — Bij herbevestiging wordt de &quot;last_confirmed_at&quot; datum bijgewerkt.</li>
+        <li><strong>valid_from / valid_until</strong> — Every fact has a validity period.</li>
+        <li><strong>Superseded</strong> — When a fact is replaced by new information, the old fact is marked as &quot;superseded&quot; with a link to its successor.</li>
+        <li><strong>Contradicted</strong> — When two sources provide conflicting information, both are flagged.</li>
+        <li><strong>Confirmed</strong> — Upon reconfirmation, the &quot;last_confirmed_at&quot; date is updated.</li>
       </UL>
-      <H2>Versiegeschiedenis</H2>
+      <H2>Version history</H2>
       <P>
-        Elke kenniseenheid heeft een volledige versiegeschiedenis met wijzigingstypen: created, updated,
-        superseded, contradicted, confirmed en archived. Zo kun je altijd zien wanneer en waarom
-        informatie is gewijzigd.
+        Every knowledge unit has a complete version history with change types: created, updated,
+        superseded, contradicted, confirmed, and archived. This lets you always see when and why
+        information was changed.
       </P>
-      <H2>Temporele context</H2>
+      <H2>Temporal context</H2>
       <Table
-        headers={['Context', 'Betekenis']}
+        headers={['Context', 'Meaning']}
         rows={[
-          ['current', 'Momenteel geldig en actueel'],
-          ['historical', 'Was geldig maar is inmiddels vervangen'],
-          ['planned', 'Gepland maar nog niet actief'],
+          ['current', 'Currently valid and up to date'],
+          ['historical', 'Was valid but has since been superseded'],
+          ['planned', 'Planned but not yet active'],
         ]}
       />
     </>
   );
 }
 
-function Bronverwijzingen() {
+function SourceAttribution() {
   return (
     <>
       <P>
-        Elke kenniseenheid en elk antwoord in TribeMem is traceerbaar naar de oorspronkelijke bron.
-        Dit maakt het mogelijk om antwoorden te verifi&euml;ren en de context te begrijpen.
+        Every knowledge unit and every answer in TribeMem is traceable to its original source.
+        This makes it possible to verify answers and understand their context.
       </P>
-      <H2>Hoe werken bronverwijzingen?</H2>
+      <H2>How does source attribution work?</H2>
       <UL>
-        <li>Wanneer de crawler data ophaalt, wordt elk bericht, ticket of document opgeslagen als een <strong>raw event</strong>.</li>
-        <li>Bij extractie worden kenniseenheden gekoppeld aan de bronnen waaruit ze zijn afgeleid.</li>
-        <li>Wanneer je een vraag stelt, toont het antwoord de bronnen die zijn gebruikt.</li>
+        <li>When the crawler fetches data, every message, ticket, or document is stored as a <strong>raw event</strong>.</li>
+        <li>During extraction, knowledge units are linked to the sources they were derived from.</li>
+        <li>When you ask a question, the answer shows the sources that were used.</li>
       </UL>
-      <H2>Brontypen</H2>
+      <H2>Source types</H2>
       <Table
-        headers={['Bron', 'Voorbeeld']}
+        headers={['Source', 'Example']}
         rows={[
-          ['Slack-bericht', '#engineering kanaal, door @jan, 15 maart 2024'],
-          ['Notion-pagina', 'Deployment Guide, laatst bewerkt 10 jan 2024'],
-          ['Jira-ticket', 'PROJ-1234: API redesign'],
+          ['Slack message', '#engineering channel, by @john, March 15, 2024'],
+          ['Notion page', 'Deployment Guide, last edited Jan 10, 2024'],
+          ['Jira ticket', 'PROJ-1234: API redesign'],
           ['GitHub PR', 'PR #456: Migrate to PostgreSQL'],
-          ['Google Drive', 'Architectuur Document v2.pdf'],
+          ['Google Drive', 'Architecture Document v2.pdf'],
         ]}
       />
       <Callout type="tip">
-        Klik op een bronverwijzing om direct naar het oorspronkelijke document of bericht te navigeren (indien de connector dit ondersteunt).
+        Click on a source reference to navigate directly to the original document or message (if the connector supports it).
       </Callout>
     </>
   );
 }
 
-/* ──────────────────── FUNCTIES ──────────────────── */
+/* ──────────────────── FEATURES ──────────────────── */
 
 function Dashboard() {
   return (
     <>
       <P>
-        Het dashboard geeft je een overzicht van de belangrijkste statistieken van je organisatie.
+        The dashboard gives you an overview of the most important statistics of your organization.
       </P>
-      <H2>Statistieken</H2>
+      <H2>Statistics</H2>
       <Table
-        headers={['Kaart', 'Beschrijving']}
+        headers={['Card', 'Description']}
         rows={[
-          ['Total Knowledge', 'Het totaal aantal kenniseenheden in je organisatie'],
-          ['Active Connectors', 'Aantal actief gekoppelde integraties'],
-          ['Queries', 'Totaal aantal vragen dat is gesteld'],
-          ['Pending Alerts', 'Aantal onopgeloste meldingen'],
+          ['Total Knowledge', 'The total number of knowledge units in your organization'],
+          ['Active Connectors', 'Number of actively connected integrations'],
+          ['Queries', 'Total number of questions asked'],
+          ['Pending Alerts', 'Number of unresolved alerts'],
         ]}
       />
       <H2>Knowledge Growth</H2>
       <P>
-        De Knowledge Growth-grafiek toont hoe je kennisbank groeit over tijd. Dit helpt je om te
-        begrijpen welke bronnen het meest bijdragen.
+        The Knowledge Growth chart shows how your knowledge base grows over time. This helps you
+        understand which sources contribute the most.
       </P>
       <H2>Recent Queries</H2>
       <P>
-        Een overzicht van de meest recente vragen die door teamleden zijn gesteld, inclusief de
-        kwaliteit van de antwoorden.
+        An overview of the most recent questions asked by team members, including the quality
+        of the answers.
       </P>
     </>
   );
@@ -371,32 +371,32 @@ function AskPage() {
   return (
     <>
       <P>
-        De Ask-pagina is het hart van TribeMem. Hier stel je vragen in natuurlijke taal en ontvang je
-        samengestelde antwoorden gebaseerd op de kennis uit al je gekoppelde bronnen.
+        The Ask page is the heart of TribeMem. Here you ask questions in natural language and receive
+        synthesized answers based on the knowledge from all your connected sources.
       </P>
-      <H2>Hoe werkt het?</H2>
+      <H2>How does it work?</H2>
       <OL>
-        <li>Typ je vraag in het invoerveld.</li>
-        <li>TribeMem doorzoekt alle kenniseenheden met behulp van semantisch zoeken.</li>
-        <li>De synthesize-engine combineert relevante kennis tot een coherent antwoord.</li>
-        <li>Het antwoord bevat bronverwijzingen en een confidence score.</li>
+        <li>Type your question in the input field.</li>
+        <li>TribeMem searches all knowledge units using semantic search.</li>
+        <li>The synthesize engine combines relevant knowledge into a coherent answer.</li>
+        <li>The answer includes source references and a confidence score.</li>
       </OL>
-      <H2>Voorbeeldvragen</H2>
+      <H2>Example questions</H2>
       <UL>
-        <li>&quot;Hoe werkt ons deployment-proces?&quot;</li>
-        <li>&quot;Wie is verantwoordelijk voor het API-design?&quot;</li>
-        <li>&quot;Wat zijn de stappen voor een code review?&quot;</li>
-        <li>&quot;Waarom zijn we overgestapt naar PostgreSQL?&quot;</li>
-        <li>&quot;Wat zijn de onboarding-stappen voor nieuwe developers?&quot;</li>
-        <li>&quot;Welke coding standards hanteren we voor TypeScript?&quot;</li>
+        <li>&quot;How does our deployment process work?&quot;</li>
+        <li>&quot;Who is responsible for API design?&quot;</li>
+        <li>&quot;What are the steps for a code review?&quot;</li>
+        <li>&quot;Why did we switch to PostgreSQL?&quot;</li>
+        <li>&quot;What are the onboarding steps for new developers?&quot;</li>
+        <li>&quot;What coding standards do we use for TypeScript?&quot;</li>
       </UL>
       <Callout type="tip">
-        Stel specifieke vragen voor betere resultaten. &quot;Hoe deploy ik naar productie?&quot; geeft een preciezer antwoord dan &quot;Vertel me over deployments&quot;.
+        Ask specific questions for better results. &quot;How do I deploy to production?&quot; gives a more precise answer than &quot;Tell me about deployments&quot;.
       </Callout>
-      <H2>Querylimieten</H2>
+      <H2>Query limits</H2>
       <P>
-        Het aantal queries per maand is afhankelijk van je abonnement. Bekijk je huidige gebruik op
-        de Billing-pagina onder Settings.
+        The number of queries per month depends on your subscription plan. Check your current usage
+        on the Billing page under Settings.
       </P>
     </>
   );
@@ -406,31 +406,31 @@ function KnowledgeBase() {
   return (
     <>
       <P>
-        De Knowledge Base bevat alle geëxtraheerde kennis, verdeeld over vier categorie&euml;n die
-        toegankelijk zijn via het zijmenu.
+        The Knowledge Base contains all extracted knowledge, divided into four categories accessible
+        via the sidebar.
       </P>
-      <H2>Navigatie</H2>
+      <H2>Navigation</H2>
       <Table
-        headers={['Tabblad', 'Inhoud']}
+        headers={['Tab', 'Content']}
         rows={[
-          ['Facts', 'Geverifieerde feiten over je organisatie'],
-          ['Processes', 'Gedocumenteerde workflows en processen'],
-          ['Decisions', 'Belangrijke beslissingen met rationale'],
-          ['Norms', 'Teamstandaarden, afspraken en best practices'],
+          ['Facts', 'Verified facts about your organization'],
+          ['Processes', 'Documented workflows and processes'],
+          ['Decisions', 'Key decisions with rationale'],
+          ['Norms', 'Team standards, agreements, and best practices'],
         ]}
       />
-      <H2>Filteren en zoeken</H2>
+      <H2>Filtering and searching</H2>
       <UL>
-        <li><strong>Categorie</strong> — Filter op engineering, support, HR, finance, etc.</li>
-        <li><strong>Status</strong> — Filter op active, superseded, contradicted, archived of flagged.</li>
-        <li><strong>Confidence</strong> — Filter op betrouwbaarheidsscore.</li>
-        <li><strong>Tags</strong> — Filter op toegewezen tags.</li>
-        <li><strong>Zoeken</strong> — Zoek op trefwoorden in titel en beschrijving.</li>
+        <li><strong>Category</strong> — Filter by engineering, support, HR, finance, etc.</li>
+        <li><strong>Status</strong> — Filter by active, superseded, contradicted, archived, or flagged.</li>
+        <li><strong>Confidence</strong> — Filter by reliability score.</li>
+        <li><strong>Tags</strong> — Filter by assigned tags.</li>
+        <li><strong>Search</strong> — Search by keywords in title and description.</li>
       </UL>
-      <H2>Kenniseenheid bewerken</H2>
+      <H2>Editing a knowledge unit</H2>
       <P>
-        Klik op een kenniseenheid om de details te bekijken. Afhankelijk van je rol kun je de titel,
-        beschrijving, tags en status aanpassen.
+        Click on a knowledge unit to view its details. Depending on your role you can edit the title,
+        description, tags, and status.
       </P>
     </>
   );
@@ -440,29 +440,29 @@ function ConnectorsPage() {
   return (
     <>
       <P>
-        Connectors verbinden TribeMem met je bestaande tools. Via de Connectors-pagina kun je nieuwe
-        integraties koppelen en bestaande beheren.
+        Connectors link TribeMem to your existing tools. From the Connectors page you can connect
+        new integrations and manage existing ones.
       </P>
-      <H2>Beschikbare connectors</H2>
+      <H2>Available connectors</H2>
       <P>
-        TribeMem ondersteunt momenteel integraties met Slack, Notion, Jira, GitHub, Linear, Discord,
-        Google Drive, HubSpot en Freshdesk. Confluence, Intercom en Stripe komen binnenkort.
+        TribeMem currently supports integrations with Slack, Notion, Jira, GitHub, Linear, Discord,
+        Google Drive, HubSpot, and Freshdesk. Confluence, Intercom, and Stripe are coming soon.
       </P>
-      <H2>Een connector koppelen</H2>
+      <H2>Connecting a connector</H2>
       <OL>
-        <li>Ga naar <strong>Connectors</strong> in het zijmenu.</li>
-        <li>Zoek de gewenste tool.</li>
-        <li>Klik op <strong>Connect</strong>.</li>
-        <li>Doorloop het OAuth-autorisatieproces.</li>
-        <li>De connector verschijnt als &quot;Connected&quot; na succesvolle koppeling.</li>
+        <li>Go to <strong>Connectors</strong> in the sidebar.</li>
+        <li>Find the desired tool.</li>
+        <li>Click <strong>Connect</strong>.</li>
+        <li>Complete the OAuth authorization process.</li>
+        <li>The connector will appear as &quot;Connected&quot; after successful linking.</li>
       </OL>
-      <H2>Een connector ontkoppelen</H2>
+      <H2>Disconnecting a connector</H2>
       <P>
-        Klik op <strong>Revoke</strong> bij een gekoppelde connector om de verbinding te verbreken. Bestaande
-        kennis die via deze connector is geëxtraheerd blijft behouden.
+        Click <strong>Revoke</strong> on a connected connector to disconnect it. Existing knowledge
+        extracted via this connector will be preserved.
       </P>
       <Callout type="warning">
-        Het ontkoppelen van een connector stopt het crawlen van nieuwe data, maar verwijdert geen bestaande kennis.
+        Disconnecting a connector stops crawling new data but does not remove existing knowledge.
       </Callout>
     </>
   );
@@ -472,111 +472,111 @@ function CrawlerPage() {
   return (
     <>
       <P>
-        De Crawler is het onderdeel dat periodiek je gekoppelde bronnen doorzoekt en nieuwe data ophaalt.
+        The Crawler is the component that periodically scans your connected sources and fetches new data.
       </P>
-      <H2>Automatisch crawlen</H2>
+      <H2>Automatic crawling</H2>
       <P>
-        Wanneer auto-crawl is ingeschakeld (standaard), haalt TribeMem automatisch op regelmatige
-        tijden nieuwe data op uit je connectors. Dit kun je configureren in Settings &gt; General.
+        When auto-crawl is enabled (default), TribeMem automatically fetches new data from your
+        connectors at regular intervals. You can configure this in Settings &gt; General.
       </P>
-      <H2>Handmatig crawlen</H2>
+      <H2>Manual crawling</H2>
       <OL>
-        <li>Ga naar de <strong>Crawler</strong>-pagina.</li>
-        <li>Klik op <strong>Start Crawl</strong> om handmatig een crawl-run te starten.</li>
-        <li>De voortgang wordt realtime getoond.</li>
+        <li>Go to the <strong>Crawler</strong> page.</li>
+        <li>Click <strong>Start Crawl</strong> to manually trigger a crawl run.</li>
+        <li>Progress is shown in real time.</li>
       </OL>
-      <H2>Crawl-runs bekijken</H2>
+      <H2>Viewing crawl runs</H2>
       <P>
-        Op de Crawler-pagina zie je een overzicht van alle eerdere crawl-runs, inclusief status,
-        starttijd, duur en het aantal verwerkte events.
+        On the Crawler page you can see an overview of all previous crawl runs, including status,
+        start time, duration, and the number of processed events.
       </P>
-      <H2>Extractie</H2>
+      <H2>Extraction</H2>
       <P>
-        Na het crawlen worden de opgehaalde events automatisch verwerkt door de extractie-engine.
-        Deze gebruikt AI om gestructureerde kenniseenheden te extraheren uit ongestructureerde data
-        zoals chatberichten, tickets en documenten.
+        After crawling, the fetched events are automatically processed by the extraction engine.
+        It uses AI to extract structured knowledge units from unstructured data such as chat messages,
+        tickets, and documents.
       </P>
     </>
   );
 }
 
-function MeldingenPage() {
+function AlertsPage() {
   return (
     <>
       <P>
-        Het meldingensysteem waarschuwt je voor belangrijke gebeurtenissen in je kennisbank, zoals
-        tegenstrijdigheden, process drift en verouderde kennis.
+        The alerts system notifies you about important events in your knowledge base, such as
+        contradictions, process drift, and stale knowledge.
       </P>
-      <H2>Typen meldingen</H2>
+      <H2>Alert types</H2>
       <Table
-        headers={['Type', 'Beschrijving']}
+        headers={['Type', 'Description']}
         rows={[
-          ['Contradiction', 'Twee of meer bronnen spreken elkaar tegen'],
-          ['Process Drift', 'Een beschreven proces wijkt af van de daadwerkelijke praktijk'],
-          ['Knowledge Gap', 'Er is een lacune in de kennis gedetecteerd'],
-          ['Stale Knowledge', 'Kennis is langere tijd niet bevestigd of bijgewerkt'],
-          ['Connector Error', 'Er is een probleem met een gekoppelde connector'],
-          ['Usage Limit', 'Je nadert of overschrijdt een gebruikslimiet'],
+          ['Contradiction', 'Two or more sources contradict each other'],
+          ['Process Drift', 'A described process differs from actual practice'],
+          ['Knowledge Gap', 'A gap in knowledge has been detected'],
+          ['Stale Knowledge', 'Knowledge has not been confirmed or updated for a long time'],
+          ['Connector Error', 'There is a problem with a connected connector'],
+          ['Usage Limit', 'You are approaching or exceeding a usage limit'],
         ]}
       />
-      <H2>Ernst-niveaus</H2>
+      <H2>Severity levels</H2>
       <Table
-        headers={['Niveau', 'Betekenis']}
+        headers={['Level', 'Meaning']}
         rows={[
-          ['Critical', 'Onmiddellijke actie vereist'],
-          ['High', 'Zo snel mogelijk oplossen'],
-          ['Medium', 'Aandacht nodig op korte termijn'],
-          ['Low', 'Op termijn bekijken'],
-          ['Info', 'Ter informatie'],
+          ['Critical', 'Immediate action required'],
+          ['High', 'Resolve as soon as possible'],
+          ['Medium', 'Needs attention in the short term'],
+          ['Low', 'Review when convenient'],
+          ['Info', 'For informational purposes'],
         ]}
       />
-      <H2>Meldingen beheren</H2>
+      <H2>Managing alerts</H2>
       <UL>
-        <li>Klik op het bel-icoon rechtsboven om recente meldingen te bekijken.</li>
-        <li>Klik op een melding om deze als gelezen te markeren.</li>
-        <li>Ga naar de Alerts-pagina voor een volledig overzicht.</li>
-        <li>Markeer meldingen als opgelost wanneer je actie hebt ondernomen.</li>
+        <li>Click the bell icon in the top right to view recent alerts.</li>
+        <li>Click on an alert to mark it as read.</li>
+        <li>Go to the Alerts page for a full overview.</li>
+        <li>Mark alerts as resolved once you have taken action.</li>
       </UL>
     </>
   );
 }
 
-function TeamBeheer() {
+function TeamManagement() {
   return (
     <>
       <P>
-        Via de Team-pagina beheer je de leden van je organisatie. Je kunt nieuwe leden uitnodigen,
-        rollen toewijzen en leden verwijderen.
+        From the Team page you manage the members of your organization. You can invite new members,
+        assign roles, and remove members.
       </P>
-      <H2>Teamleden bekijken</H2>
+      <H2>Viewing team members</H2>
       <P>
-        De Team-pagina toont een overzicht van alle leden met hun naam, e-mailadres, rol en
-        toevoegdatum.
+        The Team page shows an overview of all members with their name, email address, role, and
+        date added.
       </P>
-      <H2>Een lid uitnodigen</H2>
+      <H2>Inviting a member</H2>
       <OL>
-        <li>Klik op <strong>Invite Member</strong>.</li>
-        <li>Vul het e-mailadres in van de persoon die je wilt uitnodigen.</li>
-        <li>Selecteer de gewenste rol (Member of Admin).</li>
-        <li>Klik op <strong>Send Invite</strong>.</li>
+        <li>Click <strong>Invite Member</strong>.</li>
+        <li>Enter the email address of the person you want to invite.</li>
+        <li>Select the desired role (Member or Admin).</li>
+        <li>Click <strong>Send Invite</strong>.</li>
       </OL>
-      <H2>Rollen wijzigen</H2>
+      <H2>Changing roles</H2>
       <P>
-        Als Owner of Admin kun je de rol van andere leden wijzigen via het dropdown-menu naast hun
-        naam. Zie &quot;Rollen &amp; permissies&quot; voor een uitleg van elke rol.
+        As an Owner or Admin you can change the role of other members via the dropdown menu next to
+        their name. See &quot;Roles &amp; permissions&quot; for an explanation of each role.
       </P>
-      <H2>Een lid verwijderen</H2>
+      <H2>Removing a member</H2>
       <P>
-        Klik op <strong>Remove</strong> naast het lid dat je wilt verwijderen. Dit kan niet ongedaan worden gemaakt.
+        Click <strong>Remove</strong> next to the member you want to remove. This action cannot be undone.
       </P>
       <Callout type="warning">
-        Het verwijderen van een lid maakt hun account niet ongedaan. Ze verliezen alleen toegang tot de organisatie.
+        Removing a member does not delete their account. They only lose access to the organization.
       </Callout>
     </>
   );
 }
 
-/* ──────────────────── INTEGRATIES ──────────────────── */
+/* ──────────────────── INTEGRATIONS ──────────────────── */
 
 function IntegrationPage({
   name,
@@ -596,13 +596,13 @@ function IntegrationPage({
   return (
     <>
       <P>{description}</P>
-      <H2>Wat wordt opgehaald?</H2>
+      <H2>What is crawled?</H2>
       <UL>
         {whatIsCrawled.map((item, i) => (
           <li key={i}>{item}</li>
         ))}
       </UL>
-      <H2>Benodigde permissies</H2>
+      <H2>Required permissions</H2>
       <UL>
         {permissions.map((p, i) => (
           <li key={i}>{p}</li>
@@ -610,7 +610,7 @@ function IntegrationPage({
       </UL>
       <H2>Setup</H2>
       <P>
-        <strong>Authenticatiemethode:</strong> {authMethod}
+        <strong>Authentication method:</strong> {authMethod}
       </P>
       <OL>
         {setupSteps.map((step, i) => (
@@ -618,7 +618,7 @@ function IntegrationPage({
         ))}
       </OL>
       <Callout type="tip">
-        Na het koppelen start de crawler automatisch met het ophalen van data uit {name}.
+        After connecting, the crawler will automatically start fetching data from {name}.
       </Callout>
     </>
   );
@@ -628,27 +628,27 @@ function SlackIntegration() {
   return (
     <IntegrationPage
       name="Slack"
-      description="Koppel Slack om kennis te extraheren uit de dagelijkse communicatie van je team. TribeMem leest berichten uit publieke en geautoriseerde priv&eacute;kanalen."
+      description="Connect Slack to extract knowledge from your team's daily communication. TribeMem reads messages from public and authorized private channels."
       whatIsCrawled={[
-        'Berichten in publieke kanalen',
-        'Berichten in geautoriseerde privékanalen',
-        'Thread-reacties',
-        'Gedeelde bestanden en links',
-        'Kanaalinformatie en beschrijvingen',
+        'Messages in public channels',
+        'Messages in authorized private channels',
+        'Thread replies',
+        'Shared files and links',
+        'Channel information and descriptions',
       ]}
       permissions={[
-        'channels:read — Lijst van kanalen bekijken',
-        'channels:history — Berichten in publieke kanalen lezen',
-        'groups:read — Privékanalen bekijken',
-        'groups:history — Berichten in privékanalen lezen',
-        'users:read — Gebruikersinformatie ophalen',
+        'channels:read — View list of channels',
+        'channels:history — Read messages in public channels',
+        'groups:read — View private channels',
+        'groups:history — Read messages in private channels',
+        'users:read — Fetch user information',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij Slack.',
-        'Je wordt doorgestuurd naar Slack voor autorisatie.',
-        'Selecteer de workspace die je wilt koppelen.',
-        'Geef TribeMem de gevraagde permissies.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to Slack.',
+        'You will be redirected to Slack for authorization.',
+        'Select the workspace you want to connect.',
+        'Grant TribeMem the requested permissions.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -658,23 +658,23 @@ function NotionIntegration() {
   return (
     <IntegrationPage
       name="Notion"
-      description="Koppel Notion om kennis te extraheren uit je wiki&apos;s, databases en documentatie."
+      description="Connect Notion to extract knowledge from your wikis, databases, and documentation."
       whatIsCrawled={[
-        'Pagina-inhoud en subpagina\'s',
-        'Database-entries',
-        'Opmerkingen op pagina\'s',
-        'Pagina-metadata (auteur, aanmaakdatum, tags)',
+        'Page content and subpages',
+        'Database entries',
+        'Comments on pages',
+        'Page metadata (author, creation date, tags)',
       ]}
       permissions={[
-        'Read content — Pagina-inhoud lezen',
-        'Read user info — Gebruikersinformatie ophalen',
+        'Read content — Read page content',
+        'Read user info — Fetch user information',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij Notion.',
-        'Je wordt doorgestuurd naar Notion voor autorisatie.',
-        'Selecteer welke pagina\'s en databases je wilt delen met TribeMem.',
-        'Klik op Allow access.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to Notion.',
+        'You will be redirected to Notion for authorization.',
+        'Select which pages and databases to share with TribeMem.',
+        'Click Allow access.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -684,24 +684,24 @@ function JiraIntegration() {
   return (
     <IntegrationPage
       name="Jira"
-      description="Koppel Jira om kennis te extraheren uit je projectmanagement, inclusief tickets, sprints en beslissingen."
+      description="Connect Jira to extract knowledge from your project management, including tickets, sprints, and decisions."
       whatIsCrawled={[
-        'Issues en subtasks',
-        'Opmerkingen op issues',
-        'Sprint-informatie',
-        'Project-metadata',
-        'Statuswijzigingen en workflows',
+        'Issues and subtasks',
+        'Comments on issues',
+        'Sprint information',
+        'Project metadata',
+        'Status changes and workflows',
       ]}
       permissions={[
-        'read:jira-work — Issues en projecten lezen',
-        'read:jira-user — Gebruikersinformatie ophalen',
+        'read:jira-work — Read issues and projects',
+        'read:jira-user — Fetch user information',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij Jira.',
-        'Je wordt doorgestuurd naar Atlassian voor autorisatie.',
-        'Selecteer de Jira-site die je wilt koppelen.',
-        'Geef TribeMem leestoegang.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to Jira.',
+        'You will be redirected to Atlassian for authorization.',
+        'Select the Jira site you want to connect.',
+        'Grant TribeMem read access.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -711,25 +711,25 @@ function GitHubIntegration() {
   return (
     <IntegrationPage
       name="GitHub"
-      description="Koppel GitHub om kennis te extraheren uit pull requests, issues, discussions en code reviews."
+      description="Connect GitHub to extract knowledge from pull requests, issues, discussions, and code reviews."
       whatIsCrawled={[
-        'Pull requests en reviews',
-        'Issues en opmerkingen',
+        'Pull requests and reviews',
+        'Issues and comments',
         'Discussions',
-        'Repository-metadata',
-        'README en documentatiebestanden',
+        'Repository metadata',
+        'README and documentation files',
       ]}
       permissions={[
-        'repo — Toegang tot repositories',
-        'read:org — Organisatie-informatie lezen',
-        'read:user — Gebruikersinformatie ophalen',
+        'repo — Access to repositories',
+        'read:org — Read organization information',
+        'read:user — Fetch user information',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij GitHub.',
-        'Je wordt doorgestuurd naar GitHub voor autorisatie.',
-        'Selecteer welke repositories je wilt koppelen.',
-        'Geef TribeMem de gevraagde permissies.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to GitHub.',
+        'You will be redirected to GitHub for authorization.',
+        'Select which repositories you want to connect.',
+        'Grant TribeMem the requested permissions.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -739,22 +739,22 @@ function LinearIntegration() {
   return (
     <IntegrationPage
       name="Linear"
-      description="Koppel Linear om kennis te extraheren uit je projectmanagement, inclusief issues, cycles en roadmaps."
+      description="Connect Linear to extract knowledge from your project management, including issues, cycles, and roadmaps."
       whatIsCrawled={[
-        'Issues en sub-issues',
-        'Opmerkingen',
-        'Cycles en projecten',
-        'Labels en statussen',
-        'Team-informatie',
+        'Issues and sub-issues',
+        'Comments',
+        'Cycles and projects',
+        'Labels and statuses',
+        'Team information',
       ]}
       permissions={[
-        'read — Leestoegang tot workspace-data',
+        'read — Read access to workspace data',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij Linear.',
-        'Je wordt doorgestuurd naar Linear voor autorisatie.',
-        'Geef TribeMem leestoegang tot je workspace.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to Linear.',
+        'You will be redirected to Linear for authorization.',
+        'Grant TribeMem read access to your workspace.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -764,23 +764,23 @@ function DiscordIntegration() {
   return (
     <IntegrationPage
       name="Discord"
-      description="Koppel Discord om kennis te extraheren uit serverberichten en discussies."
+      description="Connect Discord to extract knowledge from server messages and discussions."
       whatIsCrawled={[
-        'Berichten in tekstkanalen',
-        'Thread-berichten',
-        'Kanaalinformatie',
-        'Serverinformatie',
+        'Messages in text channels',
+        'Thread messages',
+        'Channel information',
+        'Server information',
       ]}
       permissions={[
-        'Bot permissions — Berichten lezen in geautoriseerde kanalen',
-        'Read Message History — Berichtgeschiedenis bekijken',
+        'Bot permissions — Read messages in authorized channels',
+        'Read Message History — View message history',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij Discord.',
-        'Je wordt doorgestuurd naar Discord voor autorisatie.',
-        'Selecteer de server die je wilt koppelen.',
-        'Geef de TribeMem-bot de gevraagde permissies.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to Discord.',
+        'You will be redirected to Discord for authorization.',
+        'Select the server you want to connect.',
+        'Grant the TribeMem bot the requested permissions.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -790,24 +790,24 @@ function GoogleDriveIntegration() {
   return (
     <IntegrationPage
       name="Google Drive"
-      description="Koppel Google Drive om kennis te extraheren uit documenten, spreadsheets en presentaties."
+      description="Connect Google Drive to extract knowledge from documents, spreadsheets, and presentations."
       whatIsCrawled={[
-        'Google Docs inhoud',
+        'Google Docs content',
         'Google Sheets data',
-        'Google Slides inhoud',
-        'PDF-bestanden (tekst)',
-        'Bestandsmetadata en mapstructuur',
+        'Google Slides content',
+        'PDF files (text)',
+        'File metadata and folder structure',
       ]}
       permissions={[
-        'drive.readonly — Leestoegang tot Drive-bestanden',
-        'userinfo.email — E-mailadres voor identificatie',
+        'drive.readonly — Read access to Drive files',
+        'userinfo.email — Email address for identification',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij Google Drive.',
-        'Je wordt doorgestuurd naar Google voor autorisatie.',
-        'Selecteer het account dat je wilt koppelen.',
-        'Geef TribeMem leestoegang tot je bestanden.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to Google Drive.',
+        'You will be redirected to Google for authorization.',
+        'Select the account you want to connect.',
+        'Grant TribeMem read access to your files.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -817,25 +817,25 @@ function HubSpotIntegration() {
   return (
     <IntegrationPage
       name="HubSpot"
-      description="Koppel HubSpot om kennis te extraheren uit je CRM, inclusief contacten, deals en notities."
+      description="Connect HubSpot to extract knowledge from your CRM, including contacts, deals, and notes."
       whatIsCrawled={[
-        'Contacten en bedrijven',
-        'Deals en pipelines',
-        'Notities en activiteiten',
-        'E-mailcommunicatie (samenvatting)',
-        'Ticketinformatie',
+        'Contacts and companies',
+        'Deals and pipelines',
+        'Notes and activities',
+        'Email communication (summaries)',
+        'Ticket information',
       ]}
       permissions={[
-        'crm.objects.contacts.read — Contacten lezen',
-        'crm.objects.deals.read — Deals lezen',
-        'crm.objects.companies.read — Bedrijven lezen',
+        'crm.objects.contacts.read — Read contacts',
+        'crm.objects.deals.read — Read deals',
+        'crm.objects.companies.read — Read companies',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij HubSpot.',
-        'Je wordt doorgestuurd naar HubSpot voor autorisatie.',
-        'Selecteer het HubSpot-account dat je wilt koppelen.',
-        'Geef TribeMem de gevraagde permissies.',
-        'Je wordt teruggestuurd naar TribeMem.',
+        'Go to Connectors and click Connect next to HubSpot.',
+        'You will be redirected to HubSpot for authorization.',
+        'Select the HubSpot account you want to connect.',
+        'Grant TribeMem the requested permissions.',
+        'You will be redirected back to TribeMem.',
       ]}
     />
   );
@@ -845,21 +845,21 @@ function FreshdeskIntegration() {
   return (
     <IntegrationPage
       name="Freshdesk"
-      description="Koppel Freshdesk om kennis te extraheren uit je klantenservicetickets en kennisbank."
+      description="Connect Freshdesk to extract knowledge from your customer service tickets and knowledge base."
       whatIsCrawled={[
-        'Support-tickets en antwoorden',
-        'Kennisbankartikelen',
-        'Contactinformatie',
-        'Ticketcategorieën en tags',
+        'Support tickets and replies',
+        'Knowledge base articles',
+        'Contact information',
+        'Ticket categories and tags',
       ]}
       permissions={[
-        'API key met leestoegang tot tickets en kennisbank',
+        'API key with read access to tickets and knowledge base',
       ]}
       setupSteps={[
-        'Ga naar Connectors en klik op Connect bij Freshdesk.',
-        'Vul je Freshdesk-domein in (bijv. mijnbedrijf.freshdesk.com).',
-        'Voer je Freshdesk API-key in (te vinden in Profile Settings > API Key).',
-        'Klik op Connect.',
+        'Go to Connectors and click Connect next to Freshdesk.',
+        'Enter your Freshdesk domain (e.g. mycompany.freshdesk.com).',
+        'Enter your Freshdesk API key (found in Profile Settings > API Key).',
+        'Click Connect.',
       ]}
       authMethod="API Key"
     />
@@ -868,41 +868,41 @@ function FreshdeskIntegration() {
 
 /* ──────────────────── API ──────────────────── */
 
-function ApiAuthenticatie() {
+function ApiAuthentication() {
   return (
     <>
       <P>
-        De TribeMem API gebruikt API keys voor authenticatie. Alle verzoeken moeten een geldige API key
-        bevatten in de Authorization header.
+        The TribeMem API uses API keys for authentication. All requests must include a valid API key
+        in the Authorization header.
       </P>
-      <H2>API key aanmaken</H2>
+      <H2>Creating an API key</H2>
       <OL>
-        <li>Ga naar <strong>API Keys</strong> in het zijmenu (onder Settings).</li>
-        <li>Klik op <strong>Create API Key</strong>.</li>
-        <li>Geef de key een beschrijvende naam.</li>
-        <li>Selecteer de gewenste scopes (permissies).</li>
-        <li>Klik op <strong>Create</strong>.</li>
-        <li>Kopieer de key onmiddellijk — deze wordt slechts &eacute;&eacute;n keer getoond.</li>
+        <li>Go to <strong>API Keys</strong> in the sidebar (under Settings).</li>
+        <li>Click <strong>Create API Key</strong>.</li>
+        <li>Give the key a descriptive name.</li>
+        <li>Select the desired scopes (permissions).</li>
+        <li>Click <strong>Create</strong>.</li>
+        <li>Copy the key immediately — it is only shown once.</li>
       </OL>
-      <H2>Authenticatie</H2>
-      <P>Voeg de API key toe aan elke request via de Authorization header:</P>
+      <H2>Authentication</H2>
+      <P>Add the API key to every request via the Authorization header:</P>
       <Code>{`curl -H "Authorization: Bearer tm_your_api_key_here" \\
   https://app.tribemem.com/api/v1/knowledge`}</Code>
-      <H2>Beschikbare scopes</H2>
+      <H2>Available scopes</H2>
       <Table
-        headers={['Scope', 'Beschrijving']}
+        headers={['Scope', 'Description']}
         rows={[
-          ['query:read', 'Kennisbank doorzoeken'],
-          ['knowledge:read', 'Kenniseenheden ophalen'],
-          ['knowledge:write', 'Kenniseenheden aanmaken en bewerken'],
-          ['connectors:read', 'Connectors bekijken'],
-          ['connectors:write', 'Connectors beheren'],
-          ['members:read', 'Teamleden bekijken'],
-          ['members:write', 'Teamleden beheren'],
-          ['alerts:read', 'Meldingen bekijken'],
-          ['alerts:write', 'Meldingen beheren'],
-          ['billing:read', 'Facturatie bekijken'],
-          ['billing:write', 'Facturatie beheren'],
+          ['query:read', 'Search the knowledge base'],
+          ['knowledge:read', 'Retrieve knowledge units'],
+          ['knowledge:write', 'Create and edit knowledge units'],
+          ['connectors:read', 'View connectors'],
+          ['connectors:write', 'Manage connectors'],
+          ['members:read', 'View team members'],
+          ['members:write', 'Manage team members'],
+          ['alerts:read', 'View alerts'],
+          ['alerts:write', 'Manage alerts'],
+          ['billing:read', 'View billing information'],
+          ['billing:write', 'Manage billing'],
         ]}
       />
     </>
@@ -912,49 +912,49 @@ function ApiAuthenticatie() {
 function KnowledgeEndpoints() {
   return (
     <>
-      <H2>Query — Vraag stellen</H2>
+      <H2>Query — Ask a question</H2>
       <Code>{`POST /api/v1/query
 Content-Type: application/json
 
 {
-  "query": "Hoe werkt ons deployment-proces?"
+  "query": "How does our deployment process work?"
 }`}</Code>
-      <P>Retourneert een samengesteld antwoord met bronverwijzingen en confidence score.</P>
+      <P>Returns a synthesized answer with source references and confidence score.</P>
 
-      <H2>Kenniseenheden ophalen</H2>
+      <H2>List knowledge units</H2>
       <Code>{`GET /api/v1/knowledge
 GET /api/v1/knowledge?type=process&category=engineering&status=active
 GET /api/v1/knowledge?page=1&limit=20`}</Code>
-      <P>Ondersteunt filtering op type, categorie, status en paginering.</P>
+      <P>Supports filtering by type, category, status, and pagination.</P>
 
-      <H2>Enkele kenniseenheid ophalen</H2>
+      <H2>Get a single knowledge unit</H2>
       <Code>{`GET /api/v1/knowledge/:id`}</Code>
 
-      <H2>Kenniseenheid aanmaken</H2>
+      <H2>Create a knowledge unit</H2>
       <Code>{`POST /api/v1/knowledge
 Content-Type: application/json
 
 {
-  "title": "Deployment proces",
-  "content": "We deployen elke dinsdag via CI/CD...",
+  "title": "Deployment process",
+  "content": "We deploy every Tuesday via CI/CD...",
   "type": "process",
   "category": "engineering",
   "tags": ["deployment", "ci-cd"]
 }`}</Code>
 
-      <H2>Kenniseenheid bijwerken</H2>
+      <H2>Update a knowledge unit</H2>
       <Code>{`PATCH /api/v1/knowledge/:id
 Content-Type: application/json
 
 {
-  "title": "Bijgewerkte titel",
-  "content": "Bijgewerkte inhoud..."
+  "title": "Updated title",
+  "content": "Updated content..."
 }`}</Code>
 
-      <H2>Kenniseenheid verwijderen</H2>
+      <H2>Delete a knowledge unit</H2>
       <Code>{`DELETE /api/v1/knowledge/:id`}</Code>
       <Callout type="warning">
-        Verwijderen is permanent. Overweeg om de status naar &quot;archived&quot; te wijzigen als alternatief.
+        Deletion is permanent. Consider changing the status to &quot;archived&quot; as an alternative.
       </Callout>
     </>
   );
@@ -963,11 +963,11 @@ Content-Type: application/json
 function AlertsEndpoints() {
   return (
     <>
-      <H2>Alle meldingen ophalen</H2>
+      <H2>List all alerts</H2>
       <Code>{`GET /api/v1/alerts`}</Code>
-      <P>Retourneert alle meldingen voor je organisatie, gesorteerd op aanmaakdatum (nieuwste eerst).</P>
+      <P>Returns all alerts for your organization, sorted by creation date (newest first).</P>
 
-      <H2>Melding bijwerken</H2>
+      <H2>Update an alert</H2>
       <Code>{`PATCH /api/v1/alerts/:id
 Content-Type: application/json
 
@@ -976,15 +976,15 @@ Content-Type: application/json
   "is_resolved": true
 }`}</Code>
 
-      <H2>Response-voorbeeld</H2>
+      <H2>Response example</H2>
       <Code>{`{
   "alerts": [
     {
       "id": "uuid",
       "type": "contradiction",
       "severity": "high",
-      "title": "Tegenstrijdige informatie over deployment-dag",
-      "description": "Bron A zegt dinsdag, bron B zegt donderdag",
+      "title": "Conflicting information about deployment day",
+      "description": "Source A says Tuesday, source B says Thursday",
       "is_read": false,
       "is_resolved": false,
       "created_at": "2024-03-15T10:30:00Z"
@@ -999,25 +999,25 @@ Content-Type: application/json
 function ConnectorsEndpoints() {
   return (
     <>
-      <H2>Alle connectors ophalen</H2>
+      <H2>List all connectors</H2>
       <Code>{`GET /api/v1/connectors`}</Code>
-      <P>Retourneert alle connectors voor je organisatie met hun status.</P>
+      <P>Returns all connectors for your organization with their status.</P>
 
-      <H2>Connector koppelen (OAuth)</H2>
+      <H2>Connect a connector (OAuth)</H2>
       <Code>{`POST /api/v1/connectors/:type/connect`}</Code>
       <P>
-        Start het OAuth-autorisatieproces. Retourneert een redirect-URL waarnaar de gebruiker gestuurd moet worden.
-        Ondersteunde types: slack, notion, jira, github, linear, discord, google-drive, hubspot.
+        Starts the OAuth authorization process. Returns a redirect URL where the user should be sent.
+        Supported types: slack, notion, jira, github, linear, discord, google-drive, hubspot.
       </P>
 
       <H2>OAuth callback</H2>
       <Code>{`GET /api/v1/connectors/:type/callback?code=...&state=...`}</Code>
       <P>
-        Dit endpoint wordt automatisch aangeroepen door de OAuth-provider na autorisatie.
-        Het slaat de credentials veilig op (AES-256-GCM versleuteld).
+        This endpoint is automatically called by the OAuth provider after authorization.
+        It stores the credentials securely (AES-256-GCM encrypted).
       </P>
 
-      <H2>Response-voorbeeld</H2>
+      <H2>Response example</H2>
       <Code>{`{
   "connectors": [
     {
@@ -1036,24 +1036,24 @@ function ConnectorsEndpoints() {
 function TeamBillingEndpoints() {
   return (
     <>
-      <H2>Teamleden ophalen</H2>
+      <H2>List team members</H2>
       <Code>{`GET /api/v1/members`}</Code>
-      <P>Retourneert alle leden van je organisatie met hun rol en toevoegdatum.</P>
+      <P>Returns all members of your organization with their role and date added.</P>
 
-      <H2>Billing informatie ophalen</H2>
+      <H2>Get billing information</H2>
       <Code>{`GET /api/billing`}</Code>
-      <P>Retourneert het huidige abonnement, gebruik en plan-details.</P>
+      <P>Returns the current subscription, usage, and plan details.</P>
 
-      <H2>Abonnement aanmaken</H2>
+      <H2>Create a subscription</H2>
       <Code>{`POST /api/billing
 Content-Type: application/json
 
 {
   "plan": "starter"
 }`}</Code>
-      <P>Start een Stripe Checkout-sessie voor het gekozen plan.</P>
+      <P>Starts a Stripe Checkout session for the chosen plan.</P>
 
-      <H2>Plan wijzigen</H2>
+      <H2>Change plan</H2>
       <Code>{`PUT /api/billing
 Content-Type: application/json
 
@@ -1061,11 +1061,11 @@ Content-Type: application/json
   "plan": "growth"
 }`}</Code>
 
-      <H2>Abonnement opzeggen</H2>
+      <H2>Cancel subscription</H2>
       <Code>{`DELETE /api/billing`}</Code>
       <Callout type="warning">
-        Na opzeggen behoud je toegang tot het einde van de huidige facturatieperiode, waarna je wordt
-        gedowngraded naar het Free plan.
+        After cancellation you retain access until the end of the current billing period, after which
+        you will be downgraded to the Free plan.
       </Callout>
     </>
   );
@@ -1075,35 +1075,35 @@ function RateLimits() {
   return (
     <>
       <P>
-        De TribeMem API hanteert rate limits om eerlijk gebruik te garanderen. Limieten zijn afhankelijk
-        van je abonnement.
+        The TribeMem API enforces rate limits to ensure fair usage. Limits depend on your
+        subscription plan.
       </P>
       <H2>Rate limits per plan</H2>
       <Table
-        headers={['Plan', 'Requests/minuut', 'Queries/maand']}
+        headers={['Plan', 'Requests/minute', 'Queries/month']}
         rows={[
           ['Free', '30', '50'],
           ['Starter', '60', '500'],
-          ['Growth', '120', '2.000'],
-          ['Business', '300', '10.000'],
-          ['Enterprise', 'Op maat', 'Onbeperkt'],
+          ['Growth', '120', '2,000'],
+          ['Business', '300', '10,000'],
+          ['Enterprise', 'Custom', 'Unlimited'],
         ]}
       />
       <H2>Rate limit headers</H2>
-      <P>Elke response bevat headers die je huidige gebruik tonen:</P>
+      <P>Every response includes headers showing your current usage:</P>
       <Code>{`X-RateLimit-Limit: 60
 X-RateLimit-Remaining: 45
 X-RateLimit-Reset: 1710500000`}</Code>
-      <H2>Foutcodes</H2>
+      <H2>Error codes</H2>
       <Table
-        headers={['Code', 'Betekenis', 'Oplossing']}
+        headers={['Code', 'Meaning', 'Solution']}
         rows={[
-          ['400', 'Bad Request — Ongeldig verzoek', 'Controleer je request body en parameters'],
-          ['401', 'Unauthorized — Ongeldige of ontbrekende API key', 'Controleer je Authorization header'],
-          ['403', 'Forbidden — Onvoldoende permissies', 'Controleer de scopes van je API key'],
-          ['404', 'Not Found — Resource niet gevonden', 'Controleer het ID of pad'],
-          ['429', 'Too Many Requests — Rate limit bereikt', 'Wacht en probeer opnieuw'],
-          ['500', 'Internal Server Error', 'Probeer opnieuw of neem contact op met support'],
+          ['400', 'Bad Request — Invalid request', 'Check your request body and parameters'],
+          ['401', 'Unauthorized — Invalid or missing API key', 'Check your Authorization header'],
+          ['403', 'Forbidden — Insufficient permissions', 'Check the scopes of your API key'],
+          ['404', 'Not Found — Resource not found', 'Check the ID or path'],
+          ['429', 'Too Many Requests — Rate limit reached', 'Wait and try again'],
+          ['500', 'Internal Server Error', 'Try again or contact support'],
         ]}
       />
     </>
@@ -1112,27 +1112,27 @@ X-RateLimit-Reset: 1710500000`}</Code>
 
 /* ──────────────────── MCP ──────────────────── */
 
-function WatIsMcp() {
+function WhatIsMcp() {
   return (
     <>
       <P>
-        MCP (Model Context Protocol) is een open standaard waarmee AI-assistenten kunnen communiceren
-        met externe tools en databronnen. TribeMem biedt een MCP-server waarmee je organisatiekennis
-        direct beschikbaar is in AI-tools zoals Claude Desktop, Claude Code en Cursor.
+        MCP (Model Context Protocol) is an open standard that enables AI assistants to communicate
+        with external tools and data sources. TribeMem provides an MCP server that makes your
+        organizational knowledge directly available in AI tools like Claude Desktop, Claude Code, and Cursor.
       </P>
-      <H2>Waarom MCP?</H2>
+      <H2>Why MCP?</H2>
       <UL>
-        <li>Stel vragen aan je organisatiekennis vanuit je favoriete AI-tool.</li>
-        <li>Geen context-switching meer tussen TribeMem en je werktools.</li>
-        <li>AI-assistenten krijgen direct toegang tot up-to-date organisatiekennis.</li>
-        <li>Bouw custom workflows die automatisch relevante kennis ophalen.</li>
+        <li>Ask questions about your organizational knowledge from your favorite AI tool.</li>
+        <li>No more context-switching between TribeMem and your work tools.</li>
+        <li>AI assistants get direct access to up-to-date organizational knowledge.</li>
+        <li>Build custom workflows that automatically fetch relevant knowledge.</li>
       </UL>
-      <H2>Ondersteunde tools</H2>
+      <H2>Supported tools</H2>
       <UL>
         <li>Claude Desktop</li>
         <li>Claude Code (CLI)</li>
         <li>Cursor</li>
-        <li>Elke MCP-compatibele client</li>
+        <li>Any MCP-compatible client</li>
       </UL>
     </>
   );
@@ -1142,15 +1142,15 @@ function McpSetup() {
   return (
     <>
       <P>
-        Volg deze stappen om de TribeMem MCP-server te configureren in je AI-tool.
+        Follow these steps to configure the TribeMem MCP server in your AI tool.
       </P>
-      <H2>Vereisten</H2>
+      <H2>Requirements</H2>
       <UL>
-        <li>Node.js 18 of hoger</li>
-        <li>Een TribeMem API key met <code className="rounded bg-muted px-1 text-sm">query:read</code> scope</li>
+        <li>Node.js 18 or higher</li>
+        <li>A TribeMem API key with <code className="rounded bg-muted px-1 text-sm">query:read</code> scope</li>
       </UL>
-      <H2>Configuratie voor Claude Desktop</H2>
-      <P>Voeg het volgende toe aan je Claude Desktop configuratie:</P>
+      <H2>Configuration for Claude Desktop</H2>
+      <P>Add the following to your Claude Desktop configuration:</P>
       <Code>{`{
   "mcpServers": {
     "tribemem": {
@@ -1163,12 +1163,12 @@ function McpSetup() {
     }
   }
 }`}</Code>
-      <H2>Configuratie voor Claude Code</H2>
+      <H2>Configuration for Claude Code</H2>
       <Code>{`claude mcp add tribemem -- npx @tribemem/mcp-server --api-key tm_your_api_key_here`}</Code>
-      <H2>Verifi&euml;ren</H2>
+      <H2>Verification</H2>
       <P>
-        Na configuratie kun je in je AI-tool vragen stellen zoals &quot;Zoek in TribeMem hoe ons
-        deployment-proces werkt&quot; en de tool zal automatisch de MCP-server aanspreken.
+        After configuration you can ask questions in your AI tool like &quot;Search TribeMem for how
+        our deployment process works&quot; and the tool will automatically call the MCP server.
       </P>
     </>
   );
@@ -1178,103 +1178,103 @@ function McpTools() {
   return (
     <>
       <P>
-        De TribeMem MCP-server biedt vier tools die AI-assistenten kunnen gebruiken.
+        The TribeMem MCP server provides four tools that AI assistants can use.
       </P>
       <H2>query_knowledge</H2>
-      <P>Doorzoek de kennisbank met een natuurlijke taalvraag.</P>
+      <P>Search the knowledge base with a natural language query.</P>
       <Code>{`Tool: query_knowledge
-Input: { "query": "Hoe werkt ons deployment-proces?" }
-Output: Gestructureerd antwoord met confidence score`}</Code>
+Input: { "query": "How does our deployment process work?" }
+Output: Structured answer with confidence score`}</Code>
 
       <H2>get_process</H2>
-      <P>Haal een specifiek proces op met alle stappen.</P>
+      <P>Retrieve a specific process with all its steps.</P>
       <Code>{`Tool: get_process
 Input: { "name": "code-review" }
-Output: Stappen, verantwoordelijken, edge cases`}</Code>
+Output: Steps, responsible parties, edge cases`}</Code>
 
       <H2>list_recent_decisions</H2>
-      <P>Bekijk recente organisatiebeslissingen.</P>
+      <P>View recent organizational decisions.</P>
       <Code>{`Tool: list_recent_decisions
-Input: { "category": "engineering" }  // optioneel
-Output: Lijst van beslissingen met context en rationale`}</Code>
+Input: { "category": "engineering" }  // optional
+Output: List of decisions with context and rationale`}</Code>
 
       <H2>get_context</H2>
-      <P>Haal contextuele informatie op over een onderwerp.</P>
+      <P>Get contextual information about a topic.</P>
       <Code>{`Tool: get_context
-Input: { "topic": "PostgreSQL migratie" }
-Output: Gerelateerde entiteiten, geschiedenis, confidence`}</Code>
+Input: { "topic": "PostgreSQL migration" }
+Output: Related entities, history, confidence`}</Code>
     </>
   );
 }
 
 /* ──────────────────── SDK ──────────────────── */
 
-function SdkInstallatie() {
+function SdkInstallation() {
   return (
     <>
       <P>
-        De TribeMem SDK biedt een typed TypeScript client library voor het integreren van TribeMem
-        in je eigen applicaties.
+        The TribeMem SDK provides a typed TypeScript client library for integrating TribeMem
+        into your own applications.
       </P>
-      <H2>Installatie</H2>
+      <H2>Installation</H2>
       <Code>{`npm install @tribemem/sdk
-# of
+# or
 yarn add @tribemem/sdk
-# of
+# or
 pnpm add @tribemem/sdk`}</Code>
-      <H2>Vereisten</H2>
+      <H2>Requirements</H2>
       <UL>
-        <li>Node.js 18 of hoger</li>
-        <li>TypeScript 5.0+ (aanbevolen maar niet verplicht)</li>
-        <li>Een TribeMem API key</li>
+        <li>Node.js 18 or higher</li>
+        <li>TypeScript 5.0+ (recommended but not required)</li>
+        <li>A TribeMem API key</li>
       </UL>
     </>
   );
 }
 
-function SdkConfiguratie() {
+function SdkConfiguration() {
   return (
     <>
-      <H2>Client initialiseren</H2>
+      <H2>Initialize the client</H2>
       <Code>{`import { TribeMemClient } from '@tribemem/sdk';
 
 const client = new TribeMemClient({
   apiKey: 'tm_your_api_key_here',
-  // optioneel: custom base URL
+  // optional: custom base URL
   // baseUrl: 'https://app.tribemem.com'
 });`}</Code>
-      <H2>Omgevingsvariabelen</H2>
+      <H2>Environment variables</H2>
       <P>
-        Het is aanbevolen om je API key als omgevingsvariabele in te stellen in plaats van hardcoded
-        in je code:
+        It is recommended to set your API key as an environment variable instead of hardcoding it
+        in your code:
       </P>
       <Code>{`// .env
 TRIBEMEM_API_KEY=tm_your_api_key_here
 
-// In je code
+// In your code
 const client = new TribeMemClient({
   apiKey: process.env.TRIBEMEM_API_KEY!,
 });`}</Code>
-      <H2>TypeScript ondersteuning</H2>
+      <H2>TypeScript support</H2>
       <P>
-        De SDK is volledig geschreven in TypeScript en bevat type-definities voor alle endpoints,
-        request- en response-objecten. Je IDE geeft automatische aanvulling en type-controle.
+        The SDK is fully written in TypeScript and includes type definitions for all endpoints,
+        request and response objects. Your IDE will provide auto-completion and type checking.
       </P>
     </>
   );
 }
 
-function SdkVoorbeelden() {
+function SdkExamples() {
   return (
     <>
-      <H2>Kennis doorzoeken</H2>
-      <Code>{`const result = await client.query('Hoe werkt ons deployment-proces?');
+      <H2>Query knowledge</H2>
+      <Code>{`const result = await client.query('How does our deployment process work?');
 console.log(result.answer);
 console.log(result.confidence);
 console.log(result.sources);`}</Code>
 
-      <H2>Kenniseenheden ophalen</H2>
-      <Code>{`// Alle processen ophalen
+      <H2>List knowledge units</H2>
+      <Code>{`// Get all processes
 const { items, total } = await client.knowledge.list({
   type: 'process',
   category: 'engineering',
@@ -1283,28 +1283,28 @@ const { items, total } = await client.knowledge.list({
   limit: 20,
 });
 
-// Enkele kenniseenheid ophalen
+// Get a single knowledge unit
 const item = await client.knowledge.get('knowledge-unit-id');`}</Code>
 
-      <H2>Kenniseenheid aanmaken</H2>
+      <H2>Create a knowledge unit</H2>
       <Code>{`const newItem = await client.knowledge.create({
   title: 'Release procedure',
-  content: 'We releasen elke dinsdag via CI/CD pipeline...',
+  content: 'We release every Tuesday via CI/CD pipeline...',
   type: 'process',
   category: 'engineering',
   tags: ['release', 'ci-cd'],
 });`}</Code>
 
-      <H2>Meldingen ophalen</H2>
+      <H2>Manage alerts</H2>
       <Code>{`const { alerts } = await client.alerts.list();
 
-// Melding als gelezen markeren
+// Mark alert as read
 await client.alerts.update('alert-id', { is_read: true });
 
-// Melding als opgelost markeren
+// Mark alert as resolved
 await client.alerts.update('alert-id', { is_resolved: true });`}</Code>
 
-      <H2>Connectors bekijken</H2>
+      <H2>List connectors</H2>
       <Code>{`const { connectors } = await client.connectors.list();
 connectors.forEach(c => {
   console.log(\`\${c.type}: \${c.status}\`);
@@ -1313,30 +1313,30 @@ connectors.forEach(c => {
   );
 }
 
-/* ──────────────────── BEHEER ──────────────────── */
+/* ──────────────────── ADMINISTRATION ──────────────────── */
 
-function OrganisatieInstellingen() {
+function OrganizationSettings() {
   return (
     <>
       <P>
-        Via Settings &gt; General kun je de basisinstellingen van je organisatie beheren.
+        Via Settings &gt; General you can manage the basic settings of your organization.
       </P>
-      <H2>Algemene instellingen</H2>
+      <H2>General settings</H2>
       <UL>
-        <li><strong>Organisatienaam</strong> — De weergavenaam van je organisatie.</li>
-        <li><strong>URL-slug</strong> — Gebruikt in URLs en API-aanroepen.</li>
+        <li><strong>Organization name</strong> — The display name of your organization.</li>
+        <li><strong>URL slug</strong> — Used in URLs and API calls.</li>
       </UL>
-      <H2>Crawler-instellingen</H2>
+      <H2>Crawler settings</H2>
       <UL>
-        <li><strong>Auto-crawl</strong> — Schakel automatisch crawlen in of uit.</li>
-        <li><strong>Conflictdetectie</strong> — Detecteer automatisch tegenstrijdige informatie.</li>
-        <li><strong>Staleness-alerts</strong> — Ontvang meldingen wanneer kennis verouderd raakt.</li>
-        <li><strong>Confidence-drempel (%)</strong> — Kennis onder deze drempel wordt geflagd als onbetrouwbaar.</li>
+        <li><strong>Auto-crawl</strong> — Enable or disable automatic crawling.</li>
+        <li><strong>Conflict detection</strong> — Automatically detect conflicting information.</li>
+        <li><strong>Staleness alerts</strong> — Receive alerts when knowledge becomes stale.</li>
+        <li><strong>Confidence threshold (%)</strong> — Knowledge below this threshold is flagged as unreliable.</li>
       </UL>
       <H2>Danger Zone</H2>
       <Callout type="warning">
-        In de Danger Zone kun je je volledige organisatie verwijderen. Dit is onomkeerbaar en verwijdert
-        alle kennis, connectors, leden en instellingen.
+        In the Danger Zone you can delete your entire organization. This is irreversible and removes
+        all knowledge, connectors, members, and settings.
       </Callout>
     </>
   );
@@ -1346,34 +1346,34 @@ function BillingPage() {
   return (
     <>
       <P>
-        Via Settings &gt; Billing beheer je je abonnement, bekijk je je gebruik en beheer je je facturen.
+        Via Settings &gt; Billing you manage your subscription, view your usage, and manage your invoices.
       </P>
-      <H2>Abonnementen</H2>
+      <H2>Subscription plans</H2>
       <Table
-        headers={['Plan', 'Prijs', 'Connectors', 'Kennis', 'Queries/mnd', 'Leden']}
+        headers={['Plan', 'Price', 'Connectors', 'Knowledge', 'Queries/mo', 'Members']}
         rows={[
-          ['Free', 'Gratis', '1', '500', '50', '3'],
-          ['Starter', '$49/mnd', '3', '5.000', '500', '10'],
-          ['Growth', '$149/mnd', '8', '25.000', '2.000', '50'],
-          ['Business', '$399/mnd', 'Onbeperkt', 'Onbeperkt', '10.000', '200'],
-          ['Enterprise', 'Op maat', 'Onbeperkt', 'Onbeperkt', 'Onbeperkt', 'Onbeperkt'],
+          ['Free', 'Free', '1', '500', '50', '3'],
+          ['Starter', '$49/mo', '3', '5,000', '500', '10'],
+          ['Growth', '$149/mo', '8', '25,000', '2,000', '50'],
+          ['Business', '$399/mo', 'Unlimited', 'Unlimited', '10,000', '200'],
+          ['Enterprise', 'Custom', 'Unlimited', 'Unlimited', 'Unlimited', 'Unlimited'],
         ]}
       />
-      <H2>Gebruik bekijken</H2>
+      <H2>Viewing usage</H2>
       <P>
-        Op de Billing-pagina zie je je huidige gebruik voor de lopende facturatieperiode:
-        kenniseenheden, connectors, queries en teamleden.
+        On the Billing page you can see your current usage for the current billing period:
+        knowledge units, connectors, queries, and team members.
       </P>
-      <H2>Upgraden of downgraden</H2>
+      <H2>Upgrading or downgrading</H2>
       <P>
-        Klik op <strong>Upgrade</strong> of <strong>Downgrade</strong> om van plan te wisselen. Bij een upgrade
-        krijg je direct toegang tot de extra functionaliteit. Bij een downgrade behoud je toegang tot
-        het einde van de huidige periode.
+        Click <strong>Upgrade</strong> or <strong>Downgrade</strong> to switch plans. When upgrading
+        you get immediate access to the additional features. When downgrading you retain access
+        until the end of the current period.
       </P>
-      <H2>Opzeggen</H2>
+      <H2>Cancellation</H2>
       <P>
-        Klik op <strong>Cancel Subscription</strong> om je abonnement op te zeggen. Je behoudt toegang
-        tot het einde van de lopende facturatieperiode.
+        Click <strong>Cancel Subscription</strong> to cancel your subscription. You retain access
+        until the end of the current billing period.
       </P>
     </>
   );
@@ -1383,56 +1383,56 @@ function ApiKeysPage() {
   return (
     <>
       <P>
-        API Keys geven programmatische toegang tot de TribeMem API. Beheer je keys via API Keys in het zijmenu.
+        API Keys provide programmatic access to the TribeMem API. Manage your keys via API Keys in the sidebar.
       </P>
-      <H2>Een API key aanmaken</H2>
+      <H2>Creating an API key</H2>
       <OL>
-        <li>Klik op <strong>Create API Key</strong>.</li>
-        <li>Geef de key een beschrijvende naam (bijv. &quot;Production API&quot;).</li>
-        <li>Selecteer de gewenste scopes.</li>
-        <li>Klik op <strong>Create</strong>.</li>
-        <li>Kopieer de key direct — deze wordt slechts &eacute;&eacute;n keer getoond.</li>
+        <li>Click <strong>Create API Key</strong>.</li>
+        <li>Give the key a descriptive name (e.g. &quot;Production API&quot;).</li>
+        <li>Select the desired scopes.</li>
+        <li>Click <strong>Create</strong>.</li>
+        <li>Copy the key immediately — it is only shown once.</li>
       </OL>
       <Callout type="warning">
-        Bewaar je API key veilig. Deel deze nooit in publieke repositories of chatberichten.
-        Als je vermoedt dat een key is gelekt, trek deze dan onmiddellijk in.
+        Store your API key securely. Never share it in public repositories or chat messages.
+        If you suspect a key has been leaked, revoke it immediately.
       </Callout>
-      <H2>Key beheren</H2>
+      <H2>Managing keys</H2>
       <UL>
-        <li><strong>Status</strong> — Bekijk of een key actief of inactief is.</li>
-        <li><strong>Laatst gebruikt</strong> — Zie wanneer een key voor het laatst is gebruikt.</li>
-        <li><strong>Intrekken</strong> — Klik op <strong>Delete</strong> om een key permanent in te trekken.</li>
+        <li><strong>Status</strong> — View whether a key is active or inactive.</li>
+        <li><strong>Last used</strong> — See when a key was last used.</li>
+        <li><strong>Revoke</strong> — Click <strong>Delete</strong> to permanently revoke a key.</li>
       </UL>
     </>
   );
 }
 
-function RollenPermissies() {
+function RolesPermissions() {
   return (
     <>
       <P>
-        TribeMem kent vier rollen met oplopende permissies.
+        TribeMem has four roles with escalating permissions.
       </P>
-      <H2>Rollenmatrix</H2>
+      <H2>Roles matrix</H2>
       <Table
-        headers={['Actie', 'Viewer', 'Member', 'Admin', 'Owner']}
+        headers={['Action', 'Viewer', 'Member', 'Admin', 'Owner']}
         rows={[
-          ['Kennis bekijken', 'Ja', 'Ja', 'Ja', 'Ja'],
-          ['Vragen stellen', 'Nee', 'Ja', 'Ja', 'Ja'],
-          ['Kennis bewerken', 'Nee', 'Beperkt', 'Ja', 'Ja'],
-          ['Connectors beheren', 'Nee', 'Nee', 'Ja', 'Ja'],
-          ['Team beheren', 'Nee', 'Nee', 'Ja', 'Ja'],
-          ['Instellingen wijzigen', 'Nee', 'Nee', 'Ja', 'Ja'],
-          ['Billing beheren', 'Nee', 'Nee', 'Nee', 'Ja'],
-          ['Organisatie verwijderen', 'Nee', 'Nee', 'Nee', 'Ja'],
+          ['View knowledge', 'Yes', 'Yes', 'Yes', 'Yes'],
+          ['Ask questions', 'No', 'Yes', 'Yes', 'Yes'],
+          ['Edit knowledge', 'No', 'Limited', 'Yes', 'Yes'],
+          ['Manage connectors', 'No', 'No', 'Yes', 'Yes'],
+          ['Manage team', 'No', 'No', 'Yes', 'Yes'],
+          ['Change settings', 'No', 'No', 'Yes', 'Yes'],
+          ['Manage billing', 'No', 'No', 'No', 'Yes'],
+          ['Delete organization', 'No', 'No', 'No', 'Yes'],
         ]}
       />
-      <H2>Rolbeschrijvingen</H2>
+      <H2>Role descriptions</H2>
       <UL>
-        <li><strong>Owner</strong> — Volledige controle over de organisatie. Kan de organisatie verwijderen en is de primaire contactpersoon voor billing.</li>
-        <li><strong>Admin</strong> — Kan het team, connectors en instellingen beheren. Kan geen billing beheren of de organisatie verwijderen.</li>
-        <li><strong>Member</strong> — Kan kennis bekijken en doorzoeken, met beperkte bewerkingsmogelijkheden.</li>
-        <li><strong>Viewer</strong> — Alleen leestoegang tot de kennisbank. Kan geen vragen stellen of wijzigingen aanbrengen.</li>
+        <li><strong>Owner</strong> — Full control over the organization. Can delete the organization and is the primary billing contact.</li>
+        <li><strong>Admin</strong> — Can manage the team, connectors, and settings. Cannot manage billing or delete the organization.</li>
+        <li><strong>Member</strong> — Can view and search knowledge, with limited editing capabilities.</li>
+        <li><strong>Viewer</strong> — Read-only access to the knowledge base. Cannot ask questions or make changes.</li>
       </UL>
     </>
   );
@@ -1443,58 +1443,58 @@ function RollenPermissies() {
 function FaqPage() {
   return (
     <>
-      <H3>Hoe vaak wordt kennis bijgewerkt?</H3>
+      <H3>How often is knowledge updated?</H3>
       <P>
-        De crawler draait automatisch op regelmatige intervallen (configureerbaar in Settings).
-        Daarnaast kun je handmatig een crawl starten via de Crawler-pagina. Nieuwe kennis wordt
-        doorgaans binnen enkele minuten na het crawlen beschikbaar.
+        The crawler runs automatically at regular intervals (configurable in Settings).
+        Additionally, you can manually start a crawl via the Crawler page. New knowledge is
+        typically available within minutes after crawling.
       </P>
 
-      <H3>Wat gebeurt er als bronnen tegenstrijdig zijn?</H3>
+      <H3>What happens when sources contradict each other?</H3>
       <P>
-        TribeMem detecteert automatisch tegenstrijdigheden en markeert beide kenniseenheden als
-        &quot;contradicted&quot;. Je ontvangt een melding zodat je de tegenstrijdigheid kunt onderzoeken
-        en oplossen.
+        TribeMem automatically detects contradictions and marks both knowledge units as
+        &quot;contradicted&quot;. You will receive an alert so you can investigate and resolve
+        the contradiction.
       </P>
 
-      <H3>Hoe veilig is mijn data?</H3>
+      <H3>How secure is my data?</H3>
       <P>
-        Alle connector-credentials worden versleuteld opgeslagen met AES-256-GCM. Data wordt opgeslagen
-        in Supabase (PostgreSQL) met Row Level Security (RLS). API keys zijn gehashed en worden
-        nooit in plaintext opgeslagen na creatie.
+        All connector credentials are stored encrypted with AES-256-GCM. Data is stored in
+        Supabase (PostgreSQL) with Row Level Security (RLS). API keys are hashed and never
+        stored in plaintext after creation.
       </P>
 
-      <H3>Kan ik kennis handmatig toevoegen of bewerken?</H3>
+      <H3>Can I manually add or edit knowledge?</H3>
       <P>
-        Ja. Via de Knowledge Base kun je bestaande kenniseenheden bewerken en via de API kun je nieuwe
-        kenniseenheden aanmaken. Dit is handig voor kennis die niet in je gekoppelde tools staat.
+        Yes. Via the Knowledge Base you can edit existing knowledge units, and via the API you can
+        create new knowledge units. This is useful for knowledge that is not in your connected tools.
       </P>
 
-      <H3>Wat telt als &quot;query&quot; voor mijn limiet?</H3>
+      <H3>What counts as a &quot;query&quot; for my limit?</H3>
       <P>
-        Elke vraag die je stelt via de Ask-pagina, de API (POST /api/v1/query) of de MCP-server telt
-        als &eacute;&eacute;n query. Het bekijken van de Knowledge Base telt niet mee.
+        Every question you ask via the Ask page, the API (POST /api/v1/query), or the MCP server
+        counts as one query. Browsing the Knowledge Base does not count.
       </P>
 
-      <H3>Kan ik meerdere organisaties hebben?</H3>
+      <H3>Can I have multiple organizations?</H3>
       <P>
-        Momenteel ondersteunt TribeMem &eacute;&eacute;n organisatie per account. Als je meerdere
-        organisaties nodig hebt, neem dan contact op over het Enterprise-plan.
+        Currently TribeMem supports one organization per account. If you need multiple
+        organizations, please contact us about the Enterprise plan.
       </P>
 
-      <H3>Welke talen worden ondersteund?</H3>
+      <H3>What languages are supported?</H3>
       <P>
-        TribeMem ondersteunt alle talen die door de AI-modellen worden ondersteund. Kennis wordt
-        geëxtraheerd en beantwoord in de taal van de bron. Je kunt vragen stellen in elke taal.
+        TribeMem supports all languages supported by the underlying AI models. Knowledge is
+        extracted and answered in the language of the source. You can ask questions in any language.
       </P>
 
-      <H3>Hoe kan ik support bereiken?</H3>
+      <H3>How can I reach support?</H3>
       <UL>
-        <li><strong>Free plan:</strong> E-mail support</li>
-        <li><strong>Starter plan:</strong> Priority e-mail support</li>
+        <li><strong>Free plan:</strong> Email support</li>
+        <li><strong>Starter plan:</strong> Priority email support</li>
         <li><strong>Growth plan:</strong> Chat support</li>
         <li><strong>Business plan:</strong> Dedicated account manager</li>
-        <li><strong>Enterprise plan:</strong> 24/7 support met SLA</li>
+        <li><strong>Enterprise plan:</strong> 24/7 support with SLA</li>
       </UL>
     </>
   );
@@ -1503,29 +1503,29 @@ function FaqPage() {
 /* ──────────────────── CONTENT MAP ──────────────────── */
 
 export const docsContent: Record<string, Record<string, React.ComponentType>> = {
-  'aan-de-slag': {
-    welkom: Welkom,
-    'account-aanmaken': AccountAanmaken,
-    'organisatie-opzetten': OrganisatieOpzetten,
-    'eerste-connector': EersteConnector,
-    'eerste-vraag': EersteVraag,
+  'getting-started': {
+    welcome: Welcome,
+    'create-account': CreateAccount,
+    'set-up-organization': SetUpOrganization,
+    'first-connector': FirstConnector,
+    'first-query': FirstQuery,
   },
-  kernconcepten: {
-    kenniseenheden: Kenniseenheden,
+  'core-concepts': {
+    'knowledge-units': KnowledgeUnits,
     'confidence-scores': ConfidenceScores,
-    'temporele-versioning': TemporeleVersioning,
-    bronverwijzingen: Bronverwijzingen,
+    'temporal-versioning': TemporalVersioning,
+    'source-attribution': SourceAttribution,
   },
-  functies: {
+  features: {
     dashboard: Dashboard,
     ask: AskPage,
     'knowledge-base': KnowledgeBase,
     connectors: ConnectorsPage,
     crawler: CrawlerPage,
-    meldingen: MeldingenPage,
-    'team-beheer': TeamBeheer,
+    alerts: AlertsPage,
+    'team-management': TeamManagement,
   },
-  integraties: {
+  integrations: {
     slack: SlackIntegration,
     notion: NotionIntegration,
     jira: JiraIntegration,
@@ -1537,7 +1537,7 @@ export const docsContent: Record<string, Record<string, React.ComponentType>> = 
     freshdesk: FreshdeskIntegration,
   },
   api: {
-    authenticatie: ApiAuthenticatie,
+    authentication: ApiAuthentication,
     'knowledge-endpoints': KnowledgeEndpoints,
     'alerts-endpoints': AlertsEndpoints,
     'connectors-endpoints': ConnectorsEndpoints,
@@ -1545,22 +1545,22 @@ export const docsContent: Record<string, Record<string, React.ComponentType>> = 
     'rate-limits': RateLimits,
   },
   mcp: {
-    'wat-is-mcp': WatIsMcp,
+    'what-is-mcp': WhatIsMcp,
     setup: McpSetup,
-    'beschikbare-tools': McpTools,
+    'available-tools': McpTools,
   },
   sdk: {
-    installatie: SdkInstallatie,
-    configuratie: SdkConfiguratie,
-    voorbeelden: SdkVoorbeelden,
+    installation: SdkInstallation,
+    configuration: SdkConfiguration,
+    examples: SdkExamples,
   },
-  beheer: {
-    'organisatie-instellingen': OrganisatieInstellingen,
+  administration: {
+    'organization-settings': OrganizationSettings,
     billing: BillingPage,
     'api-keys': ApiKeysPage,
-    'rollen-permissies': RollenPermissies,
+    'roles-permissions': RolesPermissions,
   },
   faq: {
-    'veelgestelde-vragen': FaqPage,
+    'frequently-asked-questions': FaqPage,
   },
 };

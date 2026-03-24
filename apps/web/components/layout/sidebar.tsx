@@ -48,7 +48,7 @@ const navItems: NavItem[] = [
   { label: 'Connectors', href: '/connectors', icon: Plug },
   { label: 'Crawler', href: '/crawler', icon: Bot },
   { label: 'Team', href: '/team', icon: Users },
-  { label: 'Docs', href: '/docs/aan-de-slag/welkom', icon: BookOpen },
+  { label: 'Docs', href: '/docs/getting-started/welcome', icon: BookOpen },
   {
     label: 'Settings',
     href: '/settings',

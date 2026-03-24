@@ -25,12 +25,12 @@ export default function DocsPage() {
   if (!doc) {
     return (
       <div className="py-12 text-center">
-        <h1 className="text-2xl font-bold">Pagina niet gevonden</h1>
+        <h1 className="text-2xl font-bold">Page not found</h1>
         <p className="mt-2 text-muted-foreground">
-          Deze documentatiepagina bestaat niet.
+          This documentation page does not exist.
         </p>
         <Link href={getFirstDocPath()} className="mt-4 inline-block text-primary hover:underline">
-          Ga naar de documentatie
+          Go to documentation
         </Link>
       </div>
     );
@@ -42,9 +42,9 @@ export default function DocsPage() {
   if (!Content) {
     return (
       <div className="py-12 text-center">
-        <h1 className="text-2xl font-bold">Inhoud wordt nog geschreven</h1>
+        <h1 className="text-2xl font-bold">Coming soon</h1>
         <p className="mt-2 text-muted-foreground">
-          Deze pagina is binnenkort beschikbaar.
+          This page is not yet available.
         </p>
       </div>
     );
