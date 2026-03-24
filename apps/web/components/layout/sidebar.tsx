@@ -48,6 +48,7 @@ const navItems: NavItem[] = [
   { label: 'Connectors', href: '/connectors', icon: Plug },
   { label: 'Crawler', href: '/crawler', icon: Bot },
   { label: 'Team', href: '/team', icon: Users },
+  { label: 'Docs', href: '/docs/aan-de-slag/welkom', icon: BookOpen },
   {
     label: 'Settings',
     href: '/settings',
@@ -70,7 +71,11 @@ export function Sidebar() {
     );
   };
 
-  const isActive = (href: string) => pathname === href || pathname?.startsWith(href + '/');
+  const isActive = (href: string) => {
+    // For docs, match any /docs/* path
+    if (href.startsWith('/docs/')) return pathname?.startsWith('/docs') ?? false;
+    return pathname === href || pathname?.startsWith(href + '/') || false;
+  };
 
   return (
     <aside className="flex h-full w-64 flex-col border-r border-border bg-card">
